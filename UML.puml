@@ -1,0 +1,98 @@
+@startuml
+class Utilisateur {
+    +id : int
+    +email: string
+    +motDePasse: string
+    +nom: string
+    +prenom: string
+    +tel: string
+    +dateCreation: date
+    +statutCompte: boolean
+    +creerCompte(): void
+    +modifierCompte(): void
+}
+
+class Recruteur {
+    +entreprise: Organisation
+    +ajouterOffre(offre: Offre): void
+    +editerOffre(offre: Offre): void
+    +supprimerOffre(offre: Offre): void
+    +validerDemandeRecruteur(): void
+}
+
+class Candidat {
+    +rechercherOffre(): void
+    +candidater(offre: Offre, dossier: Dossier): void
+    +modifierCandidature(offre: Offre, dossier: Dossier): void
+}
+
+class Administrateur {
+    +utilisateur: Utilisateur
+    +gererDroitsAdmin(): void
+    +
+}
+
+class Organisation {
+    +siren: string
+    +nom: string
+    +type: string
+    +siegeSocial: Adresse
+}
+
+class Offre {
+    +numeroUnique: int
+    +intitule: string
+    +etat: string
+    +dateValidite: date
+    +statutPoste: string
+    +responsableHierarchique: string
+    +typeMetier: string
+    +lieuMission: string
+    +rythme: string
+    +fourchetteSalaire: string
+    +description: string
+    +ajouterCandidature(candidature: Candidature): void
+    +afficherListeCandidats(): void
+    +telechargerDossierCandidat(candidat: Candidat): void
+}
+
+
+class Adresse {
+    +numero: string
+    +rue: string
+    +ville: string
+    +codePostal: string
+}
+
+class Candidature {
+    +dateCandidature: date
+    +cv: pdf
+    +lettreMotivation: string
+    +autresPieces: string
+}
+
+
+
+class DevenirRecruteur {
+    +dateDemande: date
+    +statut: string
+    +utilisateur: Utilisateur
+}
+
+Candidat "0..*" -- "0..1" Organisation
+(Candidat, Organisation) . DevenirRecruteur
+
+
+Utilisateur <|-- Recruteur
+
+Utilisateur <|-- Candidat
+Utilisateur <|-- Administrateur
+
+Candidat "0..*" -- "0..*" Offre
+(Candidat, Offre) . Candidature
+
+
+Organisation "1" *-- "0..*" Recruteur
+Organisation "1" *-- "1..*" Offre
+Organisation "1" -- "1" Adresse
+@enduml
