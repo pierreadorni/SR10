@@ -27,7 +27,7 @@
 </div>
 
 <form class="form-login bg-white p-5 rounded col-lg-4 col-md-6 col-sm-8">
-    <h1 class="text-center mb-4">Login</h1>
+    <h1 class="text-center mb-4">Register</h1>
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="email" id="email" name="email" class="form-control">
@@ -37,9 +37,20 @@
         <input type="password" id="password" name="password" class="form-control">
     </div>
     <div class="d-flex gap-2">
-        <input type="submit" value="Login" class="btn btn-primary w-50">
-        <input type="button" value="Create Account" class="btn w-50 btn-secondary">
+        <div class="mb-3">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input type="text" id="lastname" name="lastname" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="firstname" class="form-label">First Name</label>
+            <input type="text" id="firstname" name="firstname" class="form-control">
+        </div>
     </div>
+    <div class="mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input type="tel" id="phone" name="phone" class="form-control">
+    </div>
+    <input type="button" value="Create Account" class="btn btn-primary">
 </form>
 <!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
