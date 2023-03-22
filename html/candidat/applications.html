@@ -53,103 +53,148 @@
     </div>
 </nav>
 <main class="p-5">
-    <h2>Toutes mes candidatures</h2>
-    <div class="container">
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item col text-center">Offre</li>
-            <li class="list-group-item col text-center">Entreprise</li>
-            <li class="list-group-item col text-center">Poste</li>
-            <li class="list-group-item col text-center">Date de candidature</li>
-            <li class="list-group-item col text-center">Lieu</li>
-            <li class="list-group-item col text-center">Etat de l'offre</li>
-        </ul>
 
-        <div class="d-flex flex-column flex-wrap gap-3">
-        <span class="border border-primary">
-            <div class="row justify-content-center">
-                <div class="col-2 p-2 text-center">165516116</div>
-                <div class="col-2 p-2 text-center">UTC</div>
-                <div class="col-2 p-2 text-center">Data Scientist</div>
-                <div class="col-2 p-2 text-center">21/03/2023</div>
-                <div class="col-2 p-2 text-center">Compiègne</div>
-                <div class="col-2 p-2 text-center">En cours</div>
-            </div>
-            <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-primary ms-auto">Retirer</a>
-                <a href="#" class="btn btn-primary ms-2">Consulter</a>
-            </div>
-        </span>
-            <span class="border border-primary">
-            <div class="row justify-content-center">
-                <div class="col-2 p-2 text-center">165516116</div>
-                <div class="col-2 p-2 text-center">UTC</div>
-                <div class="col-2 p-2 text-center">Data Scientist</div>
-                <div class="col-2 p-2 text-center">21/03/2023</div>
-                <div class="col-2 p-2 text-center">Compiègne</div>
-                <div class="col-2 p-2 text-center">En cours</div>
-            </div>
-            <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-primary ms-auto">Retirer</a>
-                <a href="#" class="btn btn-primary ms-2">Consulter</a>
-            </div>
-        </span>
-            <span class="border border-primary">
-            <div class="row justify-content-center">
-                <div class="col-2 p-2 text-center">165516116</div>
-                <div class="col-2 p-2 text-center">UTC</div>
-                <div class="col-2 p-2 text-center">Data Scientist</div>
-                <div class="col-2 p-2 text-center">21/03/2023</div>
-                <div class="col-2 p-2 text-center">Compiègne</div>
-                <div class="col-2 p-2 text-center">En cours</div>
-            </div>
-            <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-primary ms-auto">Retirer</a>
-                <a href="#" class="btn btn-primary ms-2">Consulter</a>
-            </div>
-        </span>
-            <span class="border border-primary">
-            <div class="row justify-content-center">
-                <div class="col-2 p-2 text-center">165516116</div>
-                <div class="col-2 p-2 text-center">UTC</div>
-                <div class="col-2 p-2 text-center">Data Scientist</div>
-                <div class="col-2 p-2 text-center">21/03/2023</div>
-                <div class="col-2 p-2 text-center">Compiègne</div>
-                <div class="col-2 p-2 text-center">En cours</div>
-            </div>
-            <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-primary ms-auto">Retirer</a>
-                <a href="#" class="btn btn-primary ms-2">Consulter</a>
-            </div>
-        </span>
-            <span class="border border-primary">
-            <div class="row justify-content-center">
-                <div class="col-2 p-2 text-center">165516116</div>
-                <div class="col-2 p-2 text-center">UTC</div>
-                <div class="col-2 p-2 text-center">Data Scientist</div>
-                <div class="col-2 p-2 text-center">21/03/2023</div>
-                <div class="col-2 p-2 text-center">Compiègne</div>
-                <div class="col-2 p-2 text-center">En cours</div>
-            </div>
-            <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-primary ms-auto">Retirer</a>
-                <a href="#" class="btn btn-primary ms-2">Consulter</a>
-            </div>
-        </span>
-            <span class="border border-primary">
-            <div class="row justify-content-center">
-                <div class="col-2 p-2 text-center">165516116</div>
-                <div class="col-2 p-2 text-center">UTC</div>
-                <div class="col-2 p-2 text-center">Data Scientist</div>
-                <div class="col-2 p-2 text-center">21/03/2023</div>
-                <div class="col-2 p-2 text-center">Compiègne</div>
-                <div class="col-2 p-2 text-center">En cours</div>
-            </div>
-            <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-primary ms-auto">Retirer</a>
-                <a href="#" class="btn btn-primary ms-2">Consulter</a>
-            </div>
-        </span>
-        </div>
+    <h2>Toutes mes candidatures</h2>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center">Offre</th>
+                <th scope="col" class="text-center">Entreprise</th>
+                <th scope="col" class="text-center">Poste</th>
+                <th scope="col" class="text-center">Date de candidature</th>
+                <th scope="col" class="text-center">Lieu</th>
+                <th scope="col" class="text-center">Etat de l'offre</th>
+                <th scope="col" class="text-center"></th>
+                <th scope="col" class="text-center"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516116</td>
+                <td class="text-center align-middle">UTC</td>
+                <td class="text-center align-middle">Data Scientist</td>
+                <td class="text-center align-middle">21/03/2023</td>
+                <td class="text-center align-middle">Compiègne</td>
+                <td class="text-center align-middle">En cours</td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Consulter</a></td>
+                <td class="text-center"><a href="#" class="btn btn-primary ms-2">Retirer</a></td>
+            </tr>
+
+
+            </tbody>
+        </table>
     </div>
 
 
