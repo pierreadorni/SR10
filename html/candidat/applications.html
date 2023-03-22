@@ -6,6 +6,11 @@
     <title>All Applications</title>
     <!-- Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+    <style>
+        .cursor-pointer {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -52,9 +57,13 @@
         </div>
     </div>
 </nav>
-<main class="p-5">
-
+<main class="p-5 w-100">
     <h2>Toutes mes candidatures</h2>
+    <div class="w-100 d-flex justify-content-end gap-2">
+        <span class="badge bg-success cursor-pointer">Acceptées</span>
+        <span class="badge bg-secondary cursor-pointer">Refusées</span>
+        <span class="badge bg-secondary cursor-pointer">En attente</span>
+    </div>
     <div class="shadow p-3 mb-5 bg-body rounded mt-4">
         <table class="table ">
             <thead>
@@ -75,7 +84,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-success">Acceptée</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -87,7 +98,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-success">Acceptée</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -99,7 +112,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-info text-dark">En Cours</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -111,7 +126,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-info text-dark">En Cours</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -123,7 +140,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-info text-dark">En Cours</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -135,7 +154,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-info text-dark">En Cours</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -147,7 +168,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-info text-dark">En Cours</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -159,7 +182,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-info text-dark">En Cours</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -171,7 +196,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-danger">Refusée</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -183,7 +210,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-danger">Refusée</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -195,7 +224,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-danger">Refusée</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
@@ -207,7 +238,9 @@
                 <td class="text-center align-middle">Data Scientist</td>
                 <td class="text-center align-middle">21/03/2023</td>
                 <td class="text-center align-middle">Compiègne</td>
-                <td class="text-center align-middle">En cours</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-danger">Refusée</span>
+                </td>
                 <td class="text-center">
                     <a href="#" class="btn btn-primary">Consulter</a>
                     <a href="#" class="btn btn-primary">Retirer</a>
