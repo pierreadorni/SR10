@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS Projet;
-CREATE DATABASE Projet;
+DROP DATABASE IF EXISTS SR10;
+CREATE DATABASE SR10;
 
-USE Projet;
+USE SR10;
 
 CREATE TABLE Organisation (
                               siren VARCHAR(255) NOT NULL,

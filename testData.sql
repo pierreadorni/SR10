@@ -1,7 +1,7 @@
 
 INSERT INTO Organisation (siren, rue, ville, region, codePostal, pays)
 VALUES ('123456789', '15 Rue de la Paix', 'Paris', 'Ile-de-France', 75001, 'France'),
-       ('987654321', '10 Downing Street', 'London', 'Greater London', 'SW1A 2AA', 'United Kingdom');
+       ('987654321', '10 Downing Street', 'London', 'Greater London', 54001, 'United Kingdom');
 
 INSERT INTO Utilisateur (typeUtilisateur, email, nom, prenom, dateCreation, statutCompte, mdpHash, organisation)
 VALUES ('Administrateur', 'admin@example.com', 'Doe', 'John', '2022-01-01', 'actif', 'passwordhash', NULL),
