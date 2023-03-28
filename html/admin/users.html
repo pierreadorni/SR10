@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>All Users</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .cursor-pointer {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center gap-2 mx-lg-3" href="#">
+            <svg
+                    class="bi bi-briefcase-fill"
+                    fill="currentColor"
+                    height="24"
+                    viewBox="0 0 16 16"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+            >
+                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"/>
+                <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"/>
+            </svg>
+            Jobify
+        </a>
+        <button aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-bs-target="#navbarText" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a aria-current="page" class="nav-link active" href="#">Liste des utilisateurs</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                       id="navbarDropdown" role="button">
+                        Mon compte
+                    </a>
+                    <ul aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="#">Mes infos</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="p-5 w-100">
+    <h2>Liste des utilisateurs</h2>
+
+
+    <div class="d-flex justify-content-between w-100">
+        <!-- Search Bar -->
+        <div class="input-group w-60">
+            <input type="text" class="form-control" placeholder="Rechercher un utilisateur" aria-label="Rechercher un utilisateur"
+                   aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Rechercher</button>
+        </div>
+
+        <div class="col-4 d-flex justify-content-end align-items-center gap-1">
+            <span class="badge bg-dark cursor-pointer">Admin</span>
+            <span class="badge bg-info cursor-pointer">Candidat</span>
+            <span class="badge bg-warning cursor-pointer">Recruteur</span>
+        </div>
+    </div>
+
+    <div class="shadow p-3 mb-5 bg-body rounded mt-4">
+        <table class="table ">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">ID</th>
+                <th class="text-center" scope="col">Nom</th>
+                <th class="text-center" scope="col">Prénom</th>
+                <th class="text-center" scope="col">Statut du compte</th>
+                <th class="text-center" scope="col">Type d'utilisateur</th>
+                <th class="text-center" scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="text-center align-middle">165516116</td>
+              <td class="text-center align-middle">Dupont</td>
+              <td class="text-center align-middle">Jean</td>
+              <td class="text-center align-middle">
+                <span class="badge bg-success">Actif</span>
+              </td>
+              <td class="text-center align-middle">
+                <span class="badge bg-dark">Admin</span>
+              </td>
+              <td class="text-center">
+                <a class="btn btn-primary" href="#">Modifier</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center align-middle">165516117</td>
+              <td class="text-center align-middle">Dupont</td>
+              <td class="text-center align-middle">Jean</td>
+              <td class="text-center align-middle">
+                <span class="badge bg-success">Actif</span>
+              </td>
+              <td class="text-center align-middle">
+                <span class="badge bg-dark">Admin</span>
+              </td>
+              <td class="text-center">
+                <a class="btn btn-primary" href="#">Modifier</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center align-middle">165516118</td>
+              <td class="text-center align-middle">Dupont</td>
+              <td class="text-center align-middle">Jean</td>
+              <td class="text-center align-middle">
+                <span class="badge bg-danger">Inactif</span>
+              </td>
+              <td class="text-center align-middle">
+                <span class="badge bg-dark">Admin</span>
+              </td>
+              <td class="text-center">
+                <a class="btn btn-primary" href="#">Modifier</a>
+              </td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516117</td>
+                <td class="text-center align-middle">Dupont</td>
+                <td class="text-center align-middle">Jean</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-success">Actif</span>
+                </td>
+                <td class="text-center align-middle">
+                    <span class="badge btn-info">Candidat</span>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-primary" href="#">Modifier</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516117</td>
+                <td class="text-center align-middle">Dupont</td>
+                <td class="text-center align-middle">Jean</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-success">Actif</span>
+                </td>
+                <td class="text-center align-middle">
+                    <span class="badge btn-info">Candidat</span>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-primary" href="#">Modifier</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516117</td>
+                <td class="text-center align-middle">Dupont</td>
+                <td class="text-center align-middle">Jean</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-danger">Inactif</span>
+                </td>
+                <td class="text-center align-middle">
+                    <span class="badge btn-info">Candidat</span>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-primary" href="#">Modifier</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516117</td>
+                <td class="text-center align-middle">Dupont</td>
+                <td class="text-center align-middle">Jean</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-success">Actif</span>
+                </td>
+                <td class="text-center align-middle">
+                    <span class="badge btn-warning">Recruteur</span>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-primary" href="#">Modifier</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle">165516117</td>
+                <td class="text-center align-middle">Dupont</td>
+                <td class="text-center align-middle">Jean</td>
+                <td class="text-center align-middle">
+                    <span class="badge bg-danger">Inactif</span>
+                </td>
+                <td class="text-center align-middle">
+                    <span class="badge btn-warning">Recruteur</span>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-primary" href="#">Modifier</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+
+</main>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+</body>
+</html>
