@@ -8,6 +8,8 @@ const port = 3000;
 
 import {getOrganisations, insertOrganisation} from "./routes/organisations.js";
 
+// use static
+app.use('/documents', express.static('documents',));
 app.get('/', getOrganisations)
 app.post('/', insertOrganisation)
 db.connect();
