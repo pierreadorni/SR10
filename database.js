@@ -1,8 +1,10 @@
-var mysql = require("mysql");
-var pool = mysql.createPool({
-    host: "tuxa.sme.utc", //ou localhost
-    user: "ai16pxxxx",
-    password: "**********",
-    database: "ai16pxxx"
+const mysql = require("mysql2");
+
+// secrets are in the .env file
+const pool = mysql.createPool({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
 });
 module.exports = pool;
