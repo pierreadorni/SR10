@@ -1,11 +1,8 @@
-import mysql from 'mysql2';
-
-const con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "SR10"
+var mysql = require("mysql");
+var pool = mysql.createPool({
+    host: "tuxa.sme.utc", //ou localhost
+    user: "ai16pxxxx",
+    password: "**********",
+    database: "ai16pxxx"
 });
-
-
-
-export default con;
+module.exports = pool;

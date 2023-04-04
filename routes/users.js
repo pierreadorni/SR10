@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+const { Utilisateur } = require('../CRUD');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    result = userModel.readall(function (err, result) {
+    Utilisateur.readall(function (err, result) {
         if (err) {
             console.log(err);
             return;

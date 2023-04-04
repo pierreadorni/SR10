@@ -1,7 +1,7 @@
-var db = require("./database.js");
+const db = require("./database.js");
 const Organisation = {
     create: (data, callback) => {
-        connection.query(
+        db.query(
             'INSERT INTO Organisation SET ?',
             data,
             (error, results, fields) => {
@@ -11,7 +11,7 @@ const Organisation = {
         );
     },
     read: (siren, callback) => {
-        connection.query(
+        db.query(
             'SELECT * FROM Organisation WHERE siren = ?',
             [siren],
             (error, results, fields) => {
@@ -21,7 +21,7 @@ const Organisation = {
         );
     },
     update: (data, siren, callback) => {
-        connection.query(
+        db.query(
             'UPDATE Organisation SET ? WHERE siren = ?',
             [data, siren],
             (error, results, fields) => {
@@ -31,7 +31,7 @@ const Organisation = {
         );
     },
     delete: (siren, callback) => {
-        connection.query(
+        db.query(
             'DELETE FROM Organisation WHERE siren = ?',
             [siren],
             (error, results, fields) => {
@@ -46,7 +46,7 @@ module.exports = Organisation;
 
 const FichePoste = {
     create: (data, callback) => {
-        connection.query(
+        db.query(
             'INSERT INTO FichePoste SET ?',
             data,
             (error, results, fields) => {
@@ -56,7 +56,7 @@ const FichePoste = {
         );
     },
     read: (id, callback) => {
-        connection.query(
+        db.query(
             'SELECT * FROM FichePoste WHERE id = ?',
             [id],
             (error, results, fields) => {
@@ -66,7 +66,7 @@ const FichePoste = {
         );
     },
     update: (data, id, callback) => {
-        connection.query(
+        db.query(
             'UPDATE FichePoste SET ? WHERE id = ?',
             [data, id],
             (error, results, fields) => {
@@ -76,7 +76,7 @@ const FichePoste = {
         );
     },
     delete: (id, callback) => {
-        connection.query(
+        db.query(
             'DELETE FROM FichePoste WHERE id = ?',
             [id],
             (error, results, fields) => {
@@ -91,7 +91,7 @@ module.exports = FichePoste;
 
 const Utilisateur = {
     create: (data, callback) => {
-        connection.query(
+        db.query(
             'INSERT INTO Utilisateur SET ?',
             data,
             (error, results, fields) => {
@@ -101,7 +101,7 @@ const Utilisateur = {
         );
     },
     read: (id, callback) => {
-        connection.query(
+        db.query(
             'SELECT * FROM Utilisateur WHERE id = ?',
             [id],
             (error, results, fields) => {
@@ -110,8 +110,18 @@ const Utilisateur = {
             }
         );
     },
+    readall: (callback) => {
+        db.query(
+            'SELECT * FROM Utilisateur',
+            [],
+            (error, results, fields) => {
+                if (error) throw error;
+                return callback(null, results);
+            }
+        );
+    },
     update: (data, id, callback) => {
-        connection.query(
+        db.query(
             'UPDATE Utilisateur SET ? WHERE id = ?',
             [data, id],
             (error, results, fields) => {
@@ -121,7 +131,7 @@ const Utilisateur = {
         );
     },
     delete: (id, callback) => {
-        connection.query(
+        db.query(
             'DELETE FROM Utilisateur WHERE id = ?',
             [id],
             (error, results, fields) => {
@@ -137,7 +147,7 @@ module.exports = Utilisateur;
 
 const Offre = {
     create: (data, callback) => {
-        connection.query(
+        db.query(
             'INSERT INTO Offre SET ?',
             data,
             (error, results, fields) => {
@@ -147,7 +157,7 @@ const Offre = {
         );
     },
     read: (numeroOffre, callback) => {
-        connection.query(
+        db.query(
             'SELECT * FROM Offre WHERE numeroOffre = ?',
             [numeroOffre],
             (error, results, fields) => {
@@ -157,7 +167,7 @@ const Offre = {
         );
     },
     update: (data, numeroOffre, callback) => {
-        connection.query(
+        db.query(
             'UPDATE Offre SET ? WHERE numeroOffre = ?',
             [data, numeroOffre],
             (error, results, fields) => {
@@ -167,7 +177,7 @@ const Offre = {
         );
     },
     delete: (numeroOffre, callback) => {
-        connection.query(
+        db.query(
             'DELETE FROM Offre WHERE numeroOffre = ?',
             [numeroOffre],
             (error, results, fields) => {
@@ -182,7 +192,7 @@ module.exports = Offre;
 
 const DossierCandidature = {
     create: (data, callback) => {
-        connection.query(
+        db.query(
             'INSERT INTO DossierCandidature SET ?',
             data,
             (error, results, fields) => {
@@ -192,7 +202,7 @@ const DossierCandidature = {
         );
     },
     read: (id, callback) => {
-        connection.query(
+        db.query(
             'SELECT * FROM DossierCandidature WHERE id = ?',
             [id],
             (error, results, fields) => {
@@ -202,7 +212,7 @@ const DossierCandidature = {
         );
     },
     update: (data, id, callback) => {
-        connection.query(
+        db.query(
             'UPDATE DossierCandidature SET ? WHERE id = ?',
             [data, id],
             (error, results, fields) => {
@@ -212,7 +222,7 @@ const DossierCandidature = {
         );
     },
     delete: (id, callback) => {
-        connection.query(
+        db.query(
             'DELETE FROM DossierCandidature WHERE id = ?',
             [id],
             (error, results, fields) => {
@@ -227,7 +237,7 @@ module.exports = DossierCandidature;
 
 const Document = {
     create: (data, callback) => {
-        connection.query(
+        db.query(
             'INSERT INTO Document SET ?',
             data,
             (error, results, fields) => {
@@ -237,7 +247,7 @@ const Document = {
         );
     },
     read: (id, callback) => {
-        connection.query(
+        db.query(
             'SELECT * FROM Document WHERE id = ?',
             [id],
             (error, results, fields) => {
@@ -247,7 +257,7 @@ const Document = {
         );
     },
     update: (data, id, callback) => {
-        connection.query(
+        db.query(
             'UPDATE Document SET ? WHERE id = ?',
             [data, id],
             (error, results, fields) => {
@@ -257,7 +267,7 @@ const Document = {
         );
     },
     delete: (id, callback) => {
-        connection.query(
+        db.query(
             'DELETE FROM Document WHERE id = ?',
             [id],
             (error, results, fields) => {
@@ -273,7 +283,7 @@ module.exports = Document;
 
 const demandeRecruteur = {
     create: (data, callback) => {
-        connection.query(
+        db.query(
             'INSERT INTO demandeRecruteur SET ?',
             data,
             (error, results, fields) => {
@@ -283,7 +293,7 @@ const demandeRecruteur = {
         );
     },
     read: (id, callback) => {
-        connection.query(
+        db.query(
             'SELECT * FROM demandeRecruteur WHERE id = ?',
             [id],
             (error, results, fields) => {
@@ -293,7 +303,7 @@ const demandeRecruteur = {
         );
     },
     update: (data, id, callback) => {
-        connection.query(
+        db.query(
             'UPDATE demandeRecruteur SET ? WHERE id = ?',
             [data, id],
             (error, results, fields) => {
@@ -303,7 +313,7 @@ const demandeRecruteur = {
         );
     },
     delete: (id, callback) => {
-        connection.query(
+        db.query(
             'DELETE FROM demandeRecruteur WHERE id = ?',
             [id],
             (error, results, fields) => {
