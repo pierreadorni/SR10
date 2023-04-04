@@ -27,4 +27,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: timeout 2s npm start || echo "0"
+    - run: timeout 2s npm start > app.log && (grep -q "Listening on" app.log && echo "Application started successfully") || (echo "Application crashed"; exit 1)
+
