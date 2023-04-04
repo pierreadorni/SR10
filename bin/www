@@ -5,8 +5,9 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('myapp:server');
+var debug = require('debug')('jobify:server');
 var http = require('http');
+require('dotenv').config();
 
 /**
  * Get port from environment and store in Express.
