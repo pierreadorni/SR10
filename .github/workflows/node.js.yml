@@ -27,6 +27,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: timeout 2s npm start
+    - run: $(timeout 2s npm start)
     - run: if [ $? -eq 124 ]; then echo "ok"; else exit 1; fi
 
