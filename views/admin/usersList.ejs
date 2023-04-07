@@ -1,48 +1,82 @@
-<table class="table ">
-    <thead>
-    <tr>
-        <th class="text-center" scope="col">ID</th>
-        <th class="text-center" scope="col">Nom</th>
-        <th class="text-center" scope="col">Prénom</th>
-        <th class="text-center" scope="col">Statut du compte</th>
-        <th class="text-center" scope="col">Type d'utilisateur</th>
-        <th class="text-center" scope="col">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% users.forEach(function(user) { %>
-        <tr>
-            <td class="text-center align-middle"><%= user.id %></td>
-            <td class="text-center align-middle"><%= user.nom %></td>
-            <td class="text-center align-middle"><%= user.prenom %></td>
-            <td class="text-center align-middle">
-                <% if (user.active) { %>
-                    <span class="badge bg-success">Actif</span>
-                <% } else { %>
-                    <span class="badge bg-danger">Inactif</span>
-                <% } %>
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+<%- include('../partials/header'); %>
 
-            </td>
-            <td class="text-center align-middle">
-                <% switch (user.type) {
-                case 'Admin':
-                %><span class="badge bg-dark"><%= user.type %></span><%
-                    break;
-                case 'Candidat':
-                %><span class="badge btn-info"><%= user.type %></span><%
-                    break;
-                case 'Recruteur':
-                %><span class="badge btn-warning"><%= user.type %></span><%
-                    break;
-                default:
-                %><span class="badge bg-warning"><%= user.type %></span><%
-                    break;
-                } %>
-            </td>
-            <td class="text-center">
-                <a class="btn btn-primary" href="/users/edit/<%= user.id %>">Modifier</a>
-            </td>
-        </tr>
-    <% }); %>
-    </tbody>
-</table>
+<main class="p-5 w-100">
+    <h2>Liste des utilisateurs</h2>
+    <div class="d-flex justify-content-between w-100">
+
+        <%- include('../partials/searchBar');%>
+
+
+        <div class="col-4 d-flex justify-content-end align-items-center gap-1">
+            <span class="badge bg-dark cursor-pointer">Admin</span>
+            <span class="badge bg-info cursor-pointer">Candidat</span>
+            <span class="badge bg-warning cursor-pointer">Recruteur</span>
+        </div>
+    </div>
+    <div class="shadow p-3 mb-5 bg-body rounded mt-4">
+        <table class="table ">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">ID</th>
+                <th class="text-center" scope="col">Nom</th>
+                <th class="text-center" scope="col">Prénom</th>
+                <th class="text-center" scope="col">Statut du compte</th>
+                <th class="text-center" scope="col">Type d'utilisateur</th>
+                <th class="text-center" scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% users.forEach(function(user) { %>
+                <tr>
+                    <td class="text-center align-middle"><%= user.id %></td>
+                    <td class="text-center align-middle"><%= user.nom %></td>
+                    <td class="text-center align-middle"><%= user.prenom %></td>
+                    <td class="text-center align-middle">
+                        <% if (user.statutCompte === 'actif') { %>
+                            <span class="badge bg-success">Actif</span>
+                        <% } else { %>
+                            <span class="badge bg-danger">Inactif</span>
+                        <% } %>
+
+                    </td>
+                    <td class="text-center align-middle">
+                        <% switch (user.typeUtilisateur) {
+                        case 'Administrateur':
+                        %>
+                        <span class="badge bg-dark"><%= user.typeUtilisateur %></span>
+                        <%
+                            break;
+                        case 'Candidat':
+                        %>
+                        <span class="badge bg-info"><%= user.typeUtilisateur %></span>
+                        <%
+                            break;
+                        case 'Recruteur':
+                        %>
+                        <span class="badge bg-warning"><%= user.typeUtilisateur %></span>
+                        <%
+                            break;
+                        default:
+                        %>
+                        <span class="badge bg-warning"><%= user.typeUtilisateur %></span>
+                        <%
+                            break;
+                        } %>
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-primary" href="/users/edit/<%= user.id %>">Modifier</a>
+                    </td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

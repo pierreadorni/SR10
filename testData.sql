@@ -1,4 +1,4 @@
-
+USE SR10
 INSERT INTO Organisation (siren, rue, ville, region, codePostal, pays)
 VALUES ('123456789', '15 Rue de la Paix', 'Paris', 'Ile-de-France', 75001, 'France'),
        ('987654321', '10 Downing Street', 'London', 'Greater London', 54001, 'United Kingdom');
