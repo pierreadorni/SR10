@@ -9,8 +9,7 @@ const Offre = {
                 return callback(null, results);
             }
         );
-    },
-    read: (numeroOffre, callback) => {
+    },     read: (numeroOffre, callback) => {
         db.query(
             'SELECT * FROM Offre WHERE numeroOffre = ?',
             [numeroOffre],
