@@ -5,7 +5,20 @@ const sha256 = require('sha256');
 
 // home page.
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express', user: req.session.user});
+    // if the user is not authenticated, redirect to login page
+    if (!req.session.user) {
+        res.redirect('/login');
+    }
+    // if the user type is candidat, redirect to offers page
+    if (req.session.user.typeUtilisateur === 'Candidat') {
+        res.redirect('/candidat/offres');
+    }
+    // if the user type is admin, redirect to users page
+    if (req.session.user.typeUtilisateur === 'Administrateur') {
+        res.redirect('/admin/utilisateurs');
+    }
+    // if the user type is entreprise, redirect to offers page
+    res.redirect('/entreprise/offres');
 });
 
 
@@ -54,6 +67,12 @@ router.post('/register', function (req, res, next) {
         }
         res.redirect('/login');
     })
+})
+
+// Logout route
+router.get('/logout', function (req, res, next) {
+    req.session.destroy();
+    res.redirect('/login');
 })
 
 

@@ -20,6 +20,16 @@ const FichePoste = {
             }
         );
     },
+    readAll: (callback) => {
+        db.query(
+            'SELECT * FROM FichePoste',
+            [],
+            (error, results, fields) => {
+                if (error) throw error;
+                return callback(null, results);
+            }
+        )
+    },
     update: (data, id, callback) => {
         db.query(
             'UPDATE FichePoste SET ? WHERE id = ?',
