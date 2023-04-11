@@ -11,4 +11,10 @@ router.get('/offres', (req, res) => {
     })
 })
 
+router.get('/offres/:id', (req, res) => {
+    FichePoste.read(req.params.id, (err, result) => {
+        res.render('candidat/offer', {fichePoste: result});
+    })
+})
+
 module.exports = router;

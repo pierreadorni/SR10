@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <style>
+        .background-color {
+            background: url("https://linkedin.com/sc/h/55k1z8997gh8dwtihm11aajyq") 50%/cover;
+            height: 300px;
+            position: relative;
+        }
+
+        .user-circle {
+            background-color: white;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .user-info {
+            position: absolute;
+            top: 170px;
+            left: 10%;
+            display: flex;
+            align-items: end;
+            gap: 20px
+        }
+    </style>
+</head>
+<body>
+<%- include('../partials/adminHeader', {activePage: 'user'}); %>
+
+<main class="w-100">
+    <div class="w-100 background-color">
+        <div class="user-info">
+            <div class="user-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" fill="currentColor"
+                     class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd"
+                          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <section class="mt-4 p-5">
+        <form class="container ms-0 w-50" method="post">
+            <div class="d-flex gap-2 w-100">
+                <div>
+                    <label for="surname" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="surname" value="Doe">
+                </div>
+                <div>
+                    <label for="firstname" class="form-label">Prénom</label>
+                    <input type="text" class="form-control" id="firstname" value="John">
+                </div>
+            </div>
+            <div class="mt-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" value="john.doe@gmail.com">
+            </div>
+            <div class="mt-3">
+                <label for="status" class="form-label">Statut</label>
+                <select class="form-select" id="status">
+                    <option selected>Actif</option>
+                    <option>Inactif</option>
+                </select>
+            </div>
+            <div class="mt-3">
+                <label for="type" class="form-label">Type de compte</label>
+                <select class="form-select" id="type">
+                    <option selected>Administrateur</option>
+                    <option>Recruteur</option>
+                    <option>Candidat</option>
+                </select>
+            </div>
+            <div class="mt-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" id="password" value="abcdefghijklmnop">
+            </div>
+            <div class="d-flex justify-content-end gap-3">
+                <a href="/admin/users" class="btn btn-secondary mt-3">
+                    Retour
+                </a>
+                <input type="submit" class="btn btn-primary mt-3" value="Enregistrer">
+            </div>
+        </form>
+    </section>
+</main>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+</body>
+</html>

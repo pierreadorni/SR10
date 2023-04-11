@@ -4,7 +4,7 @@
     <%- include('../partials/head'); %>
 </head>
 <body>
-<%- include('../partials/header'); %>
+<%- include('../partials/adminHeader', {activePage: 'usersList'}); %>
 
 <main class="p-5 w-100">
     <h2>Liste des utilisateurs</h2>
@@ -70,7 +70,7 @@
                         } %>
                     </td>
                     <td class="text-center">
-                        <a class="btn btn-primary" href="/users/edit/<%= user.id %>">Modifier</a>
+                        <a class="btn btn-primary" href="/admin/users/<%= user.id %>">Modifier</a>
                     </td>
                 </tr>
             <% }); %>

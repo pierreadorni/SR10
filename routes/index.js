@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
     }
     // if the user type is admin, redirect to users page
     if (req.session.user.typeUtilisateur === 'Administrateur') {
-        res.redirect('/admin/utilisateurs');
+        res.redirect('/admin/users');
     }
     // if the user type is entreprise, redirect to offers page
     res.redirect('/entreprise/offres');
