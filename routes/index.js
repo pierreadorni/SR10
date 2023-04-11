@@ -5,7 +5,7 @@ const sha256 = require('sha256');
 
 // home page.
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.render('index', {title: 'Express', user: req.session.user});
 });
 
 
@@ -22,6 +22,7 @@ router.post('/login', function (req, res, next) {
     Utilisateur.read(email, (error, user)=> {
         console.log(user)
         if (user && user.mdpHash === sha256(pass)){
+            req.session.user = user;
             // redirect to the home page
             res.redirect('/');
         } else {
