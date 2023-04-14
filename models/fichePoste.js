@@ -16,7 +16,24 @@ const FichePoste = {
             [id],
             (error, results, fields) => {
                 if (error) throw error;
-                return callback(null, results[0]);
+                const result = results[0];
+                result.organisation = {
+                    siren: result.siren,
+                    nom: result.nom,
+                    rue: result.rue,
+                    codePostal: result.codePostal,
+                    ville: result.ville,
+                    region: result.region,
+                    pays: result.pays,
+                }
+                delete result.siren;
+                delete result.nom;
+                delete result.rue;
+                delete result.codePostal;
+                delete result.ville;
+                delete result.region;
+                delete result.pays;
+                return callback(null, result);
             }
         );
     },
