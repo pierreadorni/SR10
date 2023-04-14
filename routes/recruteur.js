@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const FichePoste = require('../models/FichePoste');
+const FichePoste = require('../models/fichePoste');
 
 router.get('/', (req, res) => {
     res.redirect('offres')
