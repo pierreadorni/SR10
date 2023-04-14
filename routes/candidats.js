@@ -6,6 +6,12 @@ router.get('/', (req, res) => {
     res.redirect('/candidat/offres')
 })
 router.get('/offres', (req, res) => {
+    // if url parameter 'sforsearch' is not empty, then search for offers
+    if(req.query.sforsearch){
+        FichePoste.search(req.query.sforsearch, (err, result) => {
+            res.render('candidat/offersList', {fichesPostes: result});
+        })
+    }
     FichePoste.readAll((err, result) => {
         res.render('candidat/offersList', {fichesPostes: result});
     })

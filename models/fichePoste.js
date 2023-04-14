@@ -20,9 +20,20 @@ const FichePoste = {
             }
         );
     },
+    search: (query, callback) => {
+        db.query(
+            'SELECT * FROM FichePoste WHERE FichePoste.intitule LIKE ?',
+            ['%' + query + '%'],
+            (error, results, fields) => {
+                if (error) throw error;
+                return callback(null, results);
+            }
+        );
+    },
     readAll: (callback) => {
         db.query(
-            'SELECT * FROM FichePoste',
+            // 'SELECT Organisation.nom FROM FichePoste, Organisation WHERE FichePoste.organisation = Organisation..siren',
+            'SELECT * FROM FichePoste INNER JOIN Organisation O on FichePoste.organisation = O.siren',
             [],
             (error, results, fields) => {
                 if (error) throw error;
