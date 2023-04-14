@@ -37,6 +37,26 @@ const FichePoste = {
             [],
             (error, results, fields) => {
                 if (error) throw error;
+                results = results.map(function (result) {
+                    result.organisation = {
+                        siren: result.siren,
+                        nom: result.nom,
+                        rue: result.rue,
+                        codePostal: result.codePostal,
+                        ville: result.ville,
+                        region: result.region,
+                        pays: result.pays,
+                    }
+                    delete result.siren;
+                    delete result.nom;
+                    delete result.rue;
+                    delete result.codePostal;
+                    delete result.ville;
+                    delete result.region;
+                    delete result.pays;
+                    return result
+                })
+                console.log(results);
                 return callback(null, results);
             }
         )
