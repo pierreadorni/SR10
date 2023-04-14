@@ -10,7 +10,7 @@
     <h2>Liste des Offres</h2>
     <div class="d-flex justify-content-between w-100">
 
-        <%- include('../partials/searchBar', {'placeholder': 'rechercher parmi les offres'});%>
+        <%- include('../partials/searchBar', {'placeholder': 'rechercher parmi les offres', query: locals.query ? query : ''});%>
 
     </div>
     <div class="d-flex flex-wrap mt-5 gap-5">
@@ -24,7 +24,7 @@
                     <p class="card-text"><%= fichePoste.description %></p>
                     <div class="d-flex justify-content-between align-items-center">
                         <a href="/candidat/offres/<%= fichePoste.id %>" class="btn btn-outline-primary">View offer</a>
-                        <span class="text-primary">  ><%= fichePoste.fourchetteBasse %>€/an </span>
+                        <span class="text-primary">  <%= fichePoste.fourchetteBasse/1000 + 'k' %>-<%= fichePoste.fourchetteHaute/1000 +'k' %> €/an </span>
                     </div>
                 </div>
             </div>

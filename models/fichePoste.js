@@ -12,7 +12,7 @@ const FichePoste = {
     },
     read: (id, callback) => {
         db.query(
-            'SELECT * FROM FichePoste WHERE id = ?',
+            'SELECT * FROM FichePoste INNER JOIN Organisation O on FichePoste.organisation = O.siren WHERE FichePoste.id = ?',
             [id],
             (error, results, fields) => {
                 if (error) throw error;
@@ -56,7 +56,44 @@ const FichePoste = {
                     delete result.pays;
                     return result
                 })
-                console.log(results);
+                return callback(null, results);
+            }
+        )
+    },
+    readAllForOrganisation: (siren, callback) => {
+        db.query(
+            `
+                    SELECT FichePoste.id, COUNT(DC.id) AS nbCandidatures, FichePoste.intitule, FichePoste.description, O.nom
+                    FROM FichePoste 
+                    INNER JOIN Organisation O 
+                    ON FichePoste.organisation = O.siren
+                    INNER JOIN Offre ON FichePoste.id = Offre.fichePoste
+                    INNER JOIN DossierCandidature DC on Offre.numeroOffre = DC.offre
+                    WHERE organisation = ?
+                    GROUP BY FichePoste.id
+            `,
+            [siren],
+            (error, results, fields) => {
+                if (error) throw error;
+                results = results.map(function (result) {
+                    result.organisation = {
+                        siren: result.siren,
+                        nom: result.nom,
+                        rue: result.rue,
+                        codePostal: result.codePostal,
+                        ville: result.ville,
+                        region: result.region,
+                        pays: result.pays,
+                    }
+                    delete result.siren;
+                    delete result.nom;
+                    delete result.rue;
+                    delete result.codePostal;
+                    delete result.ville;
+                    delete result.region;
+                    delete result.pays;
+                    return result
+                })
                 return callback(null, results);
             }
         )

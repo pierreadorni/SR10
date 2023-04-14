@@ -10,7 +10,7 @@
     <h2>Liste des utilisateurs</h2>
     <div class="d-flex justify-content-between w-100">
 
-        <%- include('../partials/searchBar', {'placeholder': 'rechercher parmi les utilisateurs'});%>
+        <%- include('../partials/searchBar', {'placeholder': 'rechercher parmi les utilisateurs', query: locals.query ? query : ''});%>
 
 
         <div class="col-4 d-flex justify-content-end align-items-center gap-1">
@@ -52,12 +52,12 @@
                         <span class="badge bg-dark"><%= user.typeUtilisateur %></span>
                         <%
                             break;
-                        case 'Candidat':
+                        case 'candidat':
                         %>
                         <span class="badge bg-info"><%= user.typeUtilisateur %></span>
                         <%
                             break;
-                        case 'Recruteur':
+                        case 'recruteur':
                         %>
                         <span class="badge bg-warning"><%= user.typeUtilisateur %></span>
                         <%

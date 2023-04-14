@@ -18,7 +18,7 @@ CREATE TABLE Organisation
 CREATE TABLE Utilisateur
 (
     id              INT                                              NOT NULL AUTO_INCREMENT,
-    typeUtilisateur ENUM ('Administrateur', 'Recruteur', 'Candidat') NOT NULL,
+    typeUtilisateur ENUM ('Administrateur', 'recruteur', 'candidat') NOT NULL,
     email           VARCHAR(255)                                     NOT NULL,
     nom             VARCHAR(255)                                     NOT NULL,
     prenom          VARCHAR(255)                                     NOT NULL,
@@ -28,8 +28,8 @@ CREATE TABLE Utilisateur
     organisation    VARCHAR(255),
     PRIMARY KEY (id),
     FOREIGN KEY (organisation) REFERENCES Organisation (siren),
-    CHECK ((typeUtilisateur IN ('Administrateur', 'Candidat') AND organisation IS NULL) OR
-           (typeUtilisateur = 'Recruteur' AND organisation IS NOT NULL))
+    CHECK ((typeUtilisateur IN ('Administrateur', 'candidat') AND organisation IS NULL) OR
+           (typeUtilisateur = 'recruteur' AND organisation IS NOT NULL))
 );
 
 CREATE TABLE FichePoste

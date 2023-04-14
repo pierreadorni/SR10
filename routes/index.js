@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
         res.redirect('/login');
     }
     // if the user type is candidat, redirect to offers page
-    if (req.session.user.typeUtilisateur === 'Candidat') {
+    if (req.session.user.typeUtilisateur === 'candidat') {
         res.redirect('/candidat/offres');
     }
     // if the user type is admin, redirect to users page

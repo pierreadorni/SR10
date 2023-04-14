@@ -21,6 +21,19 @@ function read(email, callback) {
         }
     );
 }
+
+function search(query, callback) {
+    // search through users by nom and prenom
+    db.query(
+        'SELECT * FROM Utilisateur WHERE Utilisateur.nom LIKE ? OR Utilisateur.prenom LIKE ?',
+        ['%' + query + '%', '%' + query + '%'],
+        (error, results, fields) => {
+            if (error) throw error;
+            return callback(null, results);
+        }
+    );
+}
+
 function readAll(callback) {
     db.query(
         'SELECT * FROM Utilisateur',
@@ -59,5 +72,6 @@ module.exports = {
     read,
     readAll,
     update,
-    remove
+    remove,
+    search
 }

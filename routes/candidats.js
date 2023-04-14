@@ -9,7 +9,7 @@ router.get('/offres', (req, res) => {
     // if url parameter 'sforsearch' is not empty, then search for offers
     if(req.query.sforsearch){
         FichePoste.search(req.query.sforsearch, (err, result) => {
-            res.render('candidat/offersList', {fichesPostes: result});
+            res.render('candidat/offersList', {fichesPostes: result, query: req.query.sforsearch});
         })
     }
     FichePoste.readAll((err, result) => {
@@ -19,6 +19,7 @@ router.get('/offres', (req, res) => {
 
 router.get('/offres/:id', (req, res) => {
     FichePoste.read(req.params.id, (err, result) => {
+        console.log(result)
         res.render('candidat/offer', {fichePoste: result});
     })
 })
