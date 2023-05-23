@@ -8,14 +8,17 @@ router.get('/', function (req, res, next) {
     // if the user is not authenticated, redirect to login page
     if (!req.session.user) {
         res.redirect('/login');
+        return;
     }
     // if the user type is candidat, redirect to offers page
-    if (req.session.user.typeUtilisateur === 'candidat') {
+    if (req.session.user.typeUtilisateur === 'Candidat') {
         res.redirect('/candidat/offres');
+        return;
     }
     // if the user type is admin, redirect to users page
     if (req.session.user.typeUtilisateur === 'Administrateur') {
         res.redirect('/admin/users');
+        return;
     }
     // if the user type is entreprise, redirect to offers page
     res.redirect('/entreprise/offres');
@@ -32,7 +35,7 @@ router.post('/login', function (req, res, next) {
     const email = req.body.email;
     const pass = req.body.password;
 
-    Utilisateur.read(email, (error, user)=> {
+    Utilisateur.readByEmail(email).then( user=> {
         console.log(user)
         if (user && user.mdpHash === sha256(pass)){
             req.session.user = user;
