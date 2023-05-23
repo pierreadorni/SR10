@@ -14,11 +14,11 @@ console.log(`connecting to database ${process.env.MYSQL_DB} on ${process.env.MYS
 pool.getConnection((err, connection) => {
     if (err) {
         if (err.code === "ECONNREFUSED") {
-            // log in red and bold
             console.error("\033[31;1m"+"Could not connect to Database, exiting..."+"\033[0m");
             process.exit(1);
         }
     }
     if (connection) connection.release();
+    console.log("\033[32;1m"+"Connected to Database"+"\033[0m")
 });
 module.exports = pool;

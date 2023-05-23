@@ -8,6 +8,7 @@ const session = require('express-session')
 var indexRouter = require('./routes');
 var candidatsRouter = require('./routes/candidats');
 const bodyParser = require("body-parser");
+const multer = require('multer');
 
 var app = express();
 
@@ -27,6 +28,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
+// multer for form-data
+app.use(multer().none())
 
 // make sure any unauthenticated user is redirected to login page
 app.use((req, res, next) => {

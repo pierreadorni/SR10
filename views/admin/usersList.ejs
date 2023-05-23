@@ -10,7 +10,7 @@
     <h2>Liste des utilisateurs</h2>
     <div class="d-flex justify-content-between w-100">
 
-        <%- include('../partials/searchBar', {'placeholder': 'rechercher parmi les utilisateurs', query: locals.query ? query : ''});%>
+        <%- include('../partials/searchBar', {'placeholder': 'rechercher parmi les utilisateurs', query: locals.query ? query : ''}); %>
 
 
         <div class="col-4 d-flex justify-content-end align-items-center gap-1">
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="shadow p-3 mb-5 bg-body rounded mt-4">
-        <table class="table ">
+        <table class="table">
             <thead>
             <tr>
                 <th class="text-center" scope="col">ID</th>

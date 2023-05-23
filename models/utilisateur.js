@@ -86,7 +86,9 @@ function remove(id) {
             'DELETE FROM Utilisateur WHERE id = ?',
             [id],
             (error, results, fields) => {
-                if (error) reject(error);
+                if (error) {
+                    reject(error);
+                }
                 resolve(results);
             }
         );
