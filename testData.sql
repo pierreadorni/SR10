@@ -4,7 +4,7 @@ VALUES ('123456789','Spotifail', '15 Rue de la Paix', 'Paris', 'Ile-de-France', 
        ('987654321','Saint-Cloux', '10 Downing Street', 'London', 'Greater London', 54001, 'United Kingdom');
 
 INSERT INTO Utilisateur (typeUtilisateur, email, nom, prenom, dateCreation, statutCompte, mdpHash, organisation)
-VALUES ('Administrateur', 'admin@example.com', 'Doe', 'John', '2022-01-01', 'actif', 'passwordhash', NULL),
+VALUES ('administrateur', 'admin@example.com', 'Doe', 'John', '2022-01-01', 'actif', 'passwordhash', NULL),
        ('recruteur', 'recruiter@example.com', 'Smith', 'Jane', '2022-01-02', 'actif', 'passwordhash', '123456789'),
        ('candidat', 'candidate@example.com', 'Lee', 'Alex', '2022-01-03', 'actif', 'passwordhash', NULL);
 

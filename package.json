@@ -6,6 +6,12 @@
     "start": "node --watch bin/www",
     "test": "jest"
   },
+  "jest": {
+    "collectCoverage": true,
+    "setupFiles": [
+      "<rootDir>/.jest/setEnvVars.js"
+    ]
+  },
   "dependencies": {
     "body-parser": "^1.20.2",
     "cookie-parser": "~1.4.4",
