@@ -36,12 +36,13 @@ router.post('/login', function (req, res, next) {
     const pass = req.body.password;
 
     Utilisateur.readByEmail(email).then( user=> {
-        console.log(user)
         if (user && user.mdpHash === sha256(pass)){
             req.session.user = user;
             // redirect to the home page
             res.redirect('/');
         } else {
+            // if the user is not found or the password is incorrect, redirect to login page with error message
+            res.status(401);
             res.render('login', {title: 'Login'});
         }
     })

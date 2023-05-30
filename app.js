@@ -1,16 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const session = require('express-session')
-
-var indexRouter = require('./routes');
-var candidatsRouter = require('./routes/candidats');
+const indexRouter = require('./routes');
+const candidatsRouter = require('./routes/candidats');
 const bodyParser = require("body-parser");
 const multer = require('multer');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,9 +30,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // multer for form-data
 app.use(multer().none())
 
-// make sure any unauthenticated user is redirected to login page
+// make sure any unauthenticated user is redirected to login page unless the url is prefixed with /api
 app.use((req, res, next) => {
-    if (!req.session.user && req.url !== '/login' && req.url !== '/register') {
+    if (!req.session.user && req.url !== '/login' && req.url !== '/register' && !req.url.startsWith('/api')) {
         res.redirect('/login')
     } else {
         next()
@@ -44,6 +43,7 @@ app.use('/', indexRouter);
 app.use('/candidat', candidatsRouter);
 app.use('/admin', require('./routes/admin'));
 app.use('/recruteur', require('./routes/recruteur'));
+app.use('/api', require('./routes/api'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

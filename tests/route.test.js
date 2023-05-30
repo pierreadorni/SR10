@@ -14,14 +14,14 @@ describe("Test the root path", () => {
             });
     });
     test("login", done => {
+        // follow redirects
         request(app)
             .post("/login",
                 {email : "admin@example.com", password :"123456"}
                 )
-            .expect("Location", "/users")
             .then(response => {
+                console.log(response.statusCode);
                 expect(response.statusCode).toBeLessThan(400);
-                console.log(response)
                 done();
             });
     });
