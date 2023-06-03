@@ -1,6 +1,6 @@
-import db from "../database";
+const db = require("../database");
 
-export function create(data) {
+function create(data) {
     return new Promise((resolve, reject) => {
         db.query(
             'INSERT INTO Organisation SET ?',
@@ -14,7 +14,7 @@ export function create(data) {
 }
 
 
-export function read (siren) {
+function read(siren) {
     return new Promise((resolve, reject) => {
         db.query(
             'SELECT * FROM Organisation WHERE siren = ?',
@@ -27,7 +27,19 @@ export function read (siren) {
     })
 }
 
-export function update(data, siren) {
+function readAll() {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM Organisation',
+            (error, results, fields) => {
+                if (error) reject(error);
+                resolve(results);
+            }
+        );
+    })
+}
+
+function update(data, siren) {
     return new Promise((resolve, reject) => {
         db.query(
             'UPDATE Organisation SET ? WHERE siren = ?',
@@ -40,7 +52,7 @@ export function update(data, siren) {
     })
 }
 
-export function remove(siren, callback) {
+function remove(siren, callback) {
     db.query(
         'DELETE FROM Organisation WHERE siren = ?',
         [siren],
@@ -49,4 +61,12 @@ export function remove(siren, callback) {
             return callback(null, results);
         }
     );
+}
+
+module.exports = {
+    create,
+    read,
+    readAll,
+    update,
+    remove
 }

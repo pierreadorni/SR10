@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Utilisateur = require('../models/utilisateur');
 const FichePoste = require("../models/fichePoste");
+const Organisation = require("../models/organisation");
 const sha256 = require('sha256');
 
 // limit access to authenticated Administrator users
@@ -35,12 +36,21 @@ router.get('/users', function (req, res, next) {
 });
 
 router.get('/users/:id', function (req, res, next) {
-    Utilisateur.read(req.params.id).then(result => {
+    Promise.all([
+        Utilisateur.read(req.params.id),
+        Organisation.readAll()
+    ]).then(([user, organizations]) => {
         res.render('admin/user', {
-            title: 'Utilisateur', user: result
+            title: 'Utilisateur',
+            user: user,
+            organisations: organizations
         });
+    }).catch(error => {
+        // Handle the error
+        next(error);
     });
-})
+});
+
 
 router.delete('/users/:id', function (req, res, next) {
     Utilisateur.remove(req.params.id)
