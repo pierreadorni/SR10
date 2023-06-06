@@ -22,7 +22,8 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a aria-current="page" class="nav-link <%= activePage == 'offersList' && 'active'%>" href="/candidat/offres">Liste des offres</a>
+                    <a aria-current="page" class="nav-link <%= activePage == 'offersList' && 'active' %>"
+                       href="/candidat/offres">Liste des offres</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
@@ -31,6 +32,10 @@
                     </a>
                     <ul aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                         <li><a class="dropdown-item" href="#">Mes infos</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/candidat/applications">Mes candidatures</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

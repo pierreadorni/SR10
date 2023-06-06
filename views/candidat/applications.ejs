@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+<%- include('../partials/candidatHeader', activePage=''); %>
+<main class="p-5">
+    <h2>Toutes mes candidatures</h2>
+    <div class="w-100 d-flex justify-content-end gap-2">
+        <span class="badge btn-primary cursor-pointer active" id="all-badge">Toutes les candidatures</span>
+        <span class="badge btn-success cursor-pointer" id="acceptees-badge">Acceptées</span>
+        <span class="badge btn-danger cursor-pointer" id="refusees-badge">Refusées</span>
+        <span class="badge btn-info cursor-pointer" id="en-attente-badge">En attente</span>
+    </div>
+    <div class="shadow p-3 mb-5 bg-body rounded mt-4">
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center">Offre</th>
+                <th scope="col" class="text-center">Entreprise</th>
+                <th scope="col" class="text-center">Poste</th>
+                <th scope="col" class="text-center">Date de candidature</th>
+                <th scope="col" class="text-center">Lieu</th>
+                <th scope="col" class="text-center">Etat de la candidature</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% candidatures.forEach(function(candidature) { %>
+                <tr class="candidature-row">
+                    <td class="text-center align-middle"> <%= candidature.numeroOffre %> </td>
+                    <td class="text-center align-middle"> <%= candidature.nomOrganisation %> </td>
+                    <td class="text-center align-middle"> <%= candidature.intitule %> </td>
+                    <td class="text-center align-middle"> <%= new Date(candidature.dateCandidature).toLocaleDateString() %> </td>
+                    <td class="text-center align-middle"> <%= candidature.localisation %> </td>
+
+                    <td class="text-center align-middle">
+                        <% if(candidature.statut == "accepté") { %>
+                            <span class="badge bg-success">Acceptée</span>
+                        <% } else if(candidature.statut == "refusé") { %>
+                            <span class="badge bg-danger">Refusée</span>
+                        <% } else { %>
+                            <span class="badge bg-info text-dark">En attente de traitement</span>
+                        <% } %>
+                    <td class="text-center">
+                        <a href="#" class="btn btn-primary">Consulter</a>
+                        <a href="#" class="btn btn-primary">Retirer</a>
+                    </td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
+</main>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+<script>
+    var accepteesBadge = document.getElementById('acceptees-badge');
+    var refuseesBadge = document.getElementById('refusees-badge');
+    var enAttenteBadge = document.getElementById('en-attente-badge');
+    var rows = document.getElementsByClassName('candidature-row');
+    var allBadge = document.getElementById('all-badge');
+
+    accepteesBadge.addEventListener('click', function () {
+        setActiveButton(accepteesBadge);
+        filterRows('acceptée');
+    });
+
+    refuseesBadge.addEventListener('click', function () {
+        setActiveButton(refuseesBadge);
+        filterRows('refusée');
+    });
+
+    enAttenteBadge.addEventListener('click', function () {
+        setActiveButton(enAttenteBadge);
+        filterRows('en attente de traitement');
+    });
+
+    allBadge.addEventListener('click', function () {
+        setActiveButton(allBadge);
+        filterRows('all');
+    });
+
+    function setActiveButton(clickedButton) {
+        // Remove active class from all buttons
+        accepteesBadge.classList.remove('active');
+        refuseesBadge.classList.remove('active');
+        enAttenteBadge.classList.remove('active');
+        allBadge.classList.remove('active');
+
+        // Add active class to the clicked button
+        clickedButton.classList.add('active');
+    }
+
+    function filterRows(status) {
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var rowStatus = row.querySelector('.badge').innerText.toLowerCase();
+            if (rowStatus === status || status === 'all') {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

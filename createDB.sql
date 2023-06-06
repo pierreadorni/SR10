@@ -46,6 +46,7 @@ CREATE TABLE FichePoste
     fourchetteBasse INT          NOT NULL,
     fourchetteHaute INT          NOT NULL,
     description     TEXT         NOT NULL,
+    localisation VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (organisation) REFERENCES Organisation (siren) ON DELETE CASCADE
 );
@@ -64,13 +65,13 @@ CREATE TABLE DossierCandidature
 (
     id              INT                                                                NOT NULL AUTO_INCREMENT,
     dateCandidature DATE                                                               NOT NULL,
-    statut          ENUM ('en cours', 'refusé', 'en attente de traitement', 'accepté') NOT NULL,
+    statut          ENUM ('refusé', 'en attente de traitement', 'accepté') NOT NULL,
     utilisateur     INT,
     offre           INT,
     PRIMARY KEY (id),
     FOREIGN KEY (utilisateur) REFERENCES Utilisateur (id) ON DELETE CASCADE,
     FOREIGN KEY (offre) REFERENCES Offre (numeroOffre) ON DELETE CASCADE,
-    CHECK (statut IN ('en cours', 'refusé', 'en attente de traitement', 'accepté'))
+    CHECK (statut IN ('refusé', 'en attente de traitement', 'accepté'))
 );
 
 CREATE TABLE Document

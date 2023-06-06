@@ -20,6 +20,38 @@ const DossierCandidature = {
             }
         );
     },
+    readAllUser: (user, callback) => {
+        return new Promise((resolve, reject) => {
+            const query = `
+            SELECT 
+                Offre.numeroOffre, 
+                Offre.dateUpload, 
+                Offre.type, 
+                FP.intitule, 
+                FP.description, 
+                FP.fourchetteBasse,
+                FP.fourchetteHaute,
+                FP.typeMetier,
+                FP.rythme,
+                FP.localisation,
+                Organisation.nom AS nomOrganisation,
+                FP.organisation AS sirenOrganisation,
+                DC.dateCandidature,
+                DC.statut
+            FROM Offre 
+            INNER JOIN FichePoste FP 
+                ON Offre.fichePoste = FP.id
+            INNER JOIN Organisation 
+                ON Organisation.siren = FP.organisation
+            INNER JOIN DossierCandidature DC
+                ON DC.offre = Offre.numeroOffre
+            WHERE DC.utilisateur = ?`;
+            db.query(query, [user], (error, results, fields) => {
+                if (error) reject(error);
+                resolve(results);
+            });
+        });
+    },
     update: (data, id, callback) => {
         db.query(
             'UPDATE DossierCandidature SET ? WHERE id = ?',

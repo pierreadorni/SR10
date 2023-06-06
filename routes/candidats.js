@@ -4,7 +4,7 @@ const FichePoste = require('../models/fichePoste');
 const Utilisateur = require("../models/utilisateur");
 const Organisation = require("../models/organisation");
 const demandeRecruteur = require("../models/demandeRecruteur");
-
+const dossierCandidature = require("../models/dossierCandidature");
 router.get('/', (req, res) => {
     res.redirect('/candidat/offres')
 })
@@ -31,6 +31,16 @@ router.get('/request', (req, res) => {
     Organisation.readAll().then(result => {
         res.render('candidat/request', {
             title: 'Liste des organisations', organisations: result
+        });
+    }).catch(err => {
+        console.log(err);
+    })
+})
+
+router.get('/applications', (req, res) => {
+    dossierCandidature.readAllUser(req.session.user.id).then(result => {
+            res.render('candidat/applications', {
+            title: 'Liste des candidatures', candidatures: result
         });
     }).catch(err => {
         console.log(err);
