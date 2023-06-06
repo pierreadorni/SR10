@@ -69,6 +69,9 @@ function readAll() {
 
 function update(data, id) {
     return new Promise((resolve, reject) => {
+        if (data.typeUtilisateur === 'Candidat') {
+            data.organisation = null;
+        }
         db.query(
             'UPDATE Utilisateur SET ? WHERE id = ?',
             [data, id],
