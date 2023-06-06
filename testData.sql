@@ -1,6 +1,6 @@
 USE SR10;
 INSERT INTO Organisation (siren, nom, rue, ville, region, codePostal, pays)
-VALUES ('123456789','Spotifail', '15 Rue de la Paix', 'Paris', 'Ile-de-France', 75001, 'France'),
+       VALUES ('123456789','Spotifail', '15 Rue de la Paix', 'Paris', 'Ile-de-France', 75001, 'France'),
        ('987654321','Saint-Cloux', '10 Downing Street', 'London', 'Greater London', 54001, 'United Kingdom');
 
 INSERT INTO Utilisateur (typeUtilisateur, email, nom, prenom, dateCreation, statutCompte, mdpHash, organisation)

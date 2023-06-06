@@ -86,15 +86,15 @@ CREATE TABLE Document
 
 CREATE TABLE demandeRecruteur
 (
-    id           INT                        NOT NULL AUTO_INCREMENT,
-    dateDemande  DATE                       NOT NULL,
-    statut       ENUM ('refuse', 'accepte') NOT NULL,
-    organisation VARCHAR(255)               NOT NULL,
-    utilisateur  INT                        NOT NULL,
+    id           INT                                      NOT NULL AUTO_INCREMENT,
+    dateDemande  DATE                                     NOT NULL DEFAULT (CURRENT_DATE),
+    statut       ENUM ('en attente', 'refuse', 'accepte') NOT NULL DEFAULT 'en attente',
+    organisation VARCHAR(255)                             NOT NULL,
+    utilisateur  INT                                      NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (organisation) REFERENCES Organisation (siren) ON DELETE CASCADE,
     FOREIGN KEY (utilisateur) REFERENCES Utilisateur (id) ON DELETE CASCADE,
-    CHECK (statut IN ('refuse', 'accepte'))
+    CHECK (statut IN ('en attente', 'refuse', 'accepte'))
 );
 
 

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+<%- include('../partials/candidatHeader', activePage=''); %>
+<main class="p-5">
+    <h1 class="text-center">Devenir Recruteur</h1>
+
+    <section class="mt-4 p-5">
+        <form class="container ms-0 w-100" onsubmit="return onSubmit(event)" method="POST">
+            <label for="Organisation" class="form-label">Sélectionnez votre organisation</label>
+            <select class="form-select" id="organisation" name="organisation">
+                <% organisations.forEach(function(organisations) { %>
+                    <option value="<%= organisations.siren %>"><%= organisations.nom %></option>
+                <% }); %>
+            </select>
+
+            <div class="d-flex justify-content-end gap-3">
+                <a href="/" class="btn btn-secondary mt-3">
+                    Retour
+                </a>
+                <input type="submit" class="btn btn-success mt-3" value="Valider">
+
+            </div>
+        </form>
+    </section>
+
+</main>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+</body>
+</html>
