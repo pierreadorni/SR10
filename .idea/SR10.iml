@@ -2,17 +2,11 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
-      <excludeFolder url="file://$MODULE_DIR$/coverage" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="toastify-js" level="application" />
-    <orderEntry type="library" name="@types/jest" level="application" />
-    <orderEntry type="library" name="bootstrap" level="application" />
-    <orderEntry type="library" name="@types/jest" level="application" />
   </component>
 </module>

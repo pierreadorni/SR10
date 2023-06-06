@@ -27,9 +27,11 @@ CREATE TABLE Utilisateur
     mdpHash         VARCHAR(255)                                     NOT NULL,
     organisation    VARCHAR(255),
     PRIMARY KEY (id),
-    FOREIGN KEY (organisation) REFERENCES Organisation (siren),
+    FOREIGN KEY (organisation) REFERENCES Organisation (siren) ON DELETE CASCADE,
+    #on delete cascade
     CHECK ((typeUtilisateur IN ('Administrateur', 'Candidat') AND organisation IS NULL) OR
            (typeUtilisateur = 'Recruteur' AND organisation IS NOT NULL))
+
 );
 
 CREATE TABLE FichePoste
@@ -45,7 +47,7 @@ CREATE TABLE FichePoste
     fourchetteHaute INT          NOT NULL,
     description     TEXT         NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (organisation) REFERENCES Organisation (siren)
+    FOREIGN KEY (organisation) REFERENCES Organisation (siren) ON DELETE CASCADE
 );
 
 CREATE TABLE Offre
@@ -55,7 +57,7 @@ CREATE TABLE Offre
     type        VARCHAR(255) NOT NULL,
     fichePoste  INT          NOT NULL,
     PRIMARY KEY (numeroOffre),
-    FOREIGN KEY (fichePoste) REFERENCES FichePoste (id)
+    FOREIGN KEY (fichePoste) REFERENCES FichePoste (id) ON DELETE CASCADE
 );
 
 CREATE TABLE DossierCandidature
@@ -66,8 +68,8 @@ CREATE TABLE DossierCandidature
     utilisateur     INT,
     offre           INT,
     PRIMARY KEY (id),
-    FOREIGN KEY (utilisateur) REFERENCES Utilisateur (id),
-    FOREIGN KEY (offre) REFERENCES Offre (numeroOffre),
+    FOREIGN KEY (utilisateur) REFERENCES Utilisateur (id) ON DELETE CASCADE,
+    FOREIGN KEY (offre) REFERENCES Offre (numeroOffre) ON DELETE CASCADE,
     CHECK (statut IN ('en cours', 'refusé', 'en attente de traitement', 'accepté'))
 );
 
@@ -79,7 +81,7 @@ CREATE TABLE Document
     type               VARCHAR(255) NOT NULL,
     dossierCandidature INT          NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (dossierCandidature) REFERENCES DossierCandidature (id)
+    FOREIGN KEY (dossierCandidature) REFERENCES DossierCandidature (id) ON DELETE CASCADE
 );
 
 CREATE TABLE demandeRecruteur
@@ -90,8 +92,8 @@ CREATE TABLE demandeRecruteur
     organisation VARCHAR(255)               NOT NULL,
     utilisateur  INT                        NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (organisation) REFERENCES Organisation (siren),
-    FOREIGN KEY (utilisateur) REFERENCES Utilisateur (id),
+    FOREIGN KEY (organisation) REFERENCES Organisation (siren) ON DELETE CASCADE,
+    FOREIGN KEY (utilisateur) REFERENCES Utilisateur (id) ON DELETE CASCADE,
     CHECK (statut IN ('refuse', 'accepte'))
 );
 
