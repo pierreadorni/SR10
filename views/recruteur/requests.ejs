@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+<%- include('../partials/recruteurHeader', {activePage: 'usersList'}); %>
+
+<main class="p-5 w-100">
+    <h2>Liste des requêtes</h2>
+    <div class="d-flex justify-content-between w-100">
+
+        <%- include('../partials/searchBar', {'placeholder': 'rechercher parmi les utilisateurs', query: locals.query ? query : ''}); %>
+
+
+        <div class="col-4 d-flex justify-content-end align-items-center gap-1">
+            <span class="badge bg-dark cursor-pointer">Admin</span>
+            <span class="badge bg-info cursor-pointer">Candidat</span>
+            <span class="badge bg-warning cursor-pointer">Recruteur</span>
+        </div>
+    </div>
+    <div class="shadow p-3 mb-5 bg-body rounded mt-4">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">Nom</th>
+                <th class="text-center" scope="col">Prénom</th>
+                <th class="text-center" scope="col">Email</th>
+                <th class="text-center" scope="col">Date de la demande</th>
+                <th class="text-center" scope="col">Statut</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% demandesRecruteurs.forEach(function(demande) { %>
+                <tr>
+                    <td class="text-center align-middle"><%= demande.nom %></td>
+                    <td class="text-center align-middle"><%= demande.prenom %></td>
+                    <td class="text-center align-middle"><%= demande.email %></td>
+                    <td class="text-center align-middle"><%= new Date(demande.dateDemande).toLocaleDateString() %></td>
+                    <td class="text-center align-middle">
+                        <% if( demande.statut === 'en attente') { %>
+                            <span class="badge bg-warning text-dark">En attente</span>
+                        <% } else if (demande.statut === 'accepte') { %>
+                            <span class="badge bg-success">Acceptée</span>
+                        <% } else { %>
+                            <span class="badge bg-danger">Refusée</span>
+                        <% } %>
+                    </td>
+
+                    <td class="text-center">
+                        <% if( demande.statut === 'en attente') { %>
+                            <button class="btn btn-success" onclick="acceptRequest('<%= demande.idDemande %>', '<%= demande.idUtilisateur %>', '<%= demande.organisation %>')">Accepter</button>
+                            <button class="btn btn-danger" onclick="return refuseRequest('<%= demande.idDemande %>')">Refuser</button>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
+</main>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+<script>
+    function refuseRequest(idDemande) {
+        const data = {
+            idDemande: idDemande,
+            statut: 'refuse'
+        };
+        fetch('/recruteur/requests', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(function (response) {
+            if (response.status < 400) {
+                window.location.reload();
+            } else {
+                alert('Une erreur est survenue');
+            }
+        });
+    }
+    function acceptRequest(idDemande, idUtilisateur, organisation) {
+        const data = {
+            idDemande: idDemande,
+            idUtilisateur: idUtilisateur,
+            statut: 'accepte',
+            organisation: organisation
+        };
+        fetch('/recruteur/requests', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(function (response) {
+            if (response.status < 400) {
+                window.location.reload();
+            } else {
+                alert('Une erreur est survenue');
+            }
+        });
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

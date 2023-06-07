@@ -6,7 +6,9 @@ INSERT INTO Organisation (siren, nom, rue, ville, region, codePostal, pays)
 INSERT INTO Utilisateur (typeUtilisateur, email, nom, prenom, dateCreation, statutCompte, mdpHash, organisation)
 VALUES ('Administrateur', 'admin@example.com', 'Doe', 'John', '2022-01-01', 'actif', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL),
        ('Recruteur', 'recruiter@example.com', 'Smith', 'Jane', '2022-01-02', 'actif', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '123456789'),
-       ('Candidat', 'candidate@example.com', 'Lee', 'Alex', '2022-01-03', 'actif', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL);
+       ('Candidat', 'candidate@example.com', 'Lee', 'Alex', '2022-01-03', 'actif', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL),
+       ('Candidat', 'bientotRecruteur@example.com', 'Mama', 'Joe', '2022-01-03', 'actif', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL);
+
 
 INSERT INTO FichePoste (organisation, dateUpload, intitule, responsable, typeMetier, rythme, fourchetteBasse, fourchetteHaute, description, localisation)
 VALUES ('123456789', '2022-01-01', 'Développeur Full-Stack', 'Doe John', 'Informatique', 'CDI', 35000, 45000, 'Nous cherchons un développeur Full-Stack expérimenté pour rejoindre notre équipe dynamique.', 'Paris'),
@@ -31,4 +33,6 @@ VALUES ('2022-01-05', 'CV', 'PDF', 1),
 
 INSERT INTO demandeRecruteur (dateDemande, statut, organisation, utilisateur)
 VALUES ('2022-01-01', 'accepte', '123456789', 2),
-       ('2022-01-02', 'refuse', '987654321', 2);
+       ('2022-01-01', 'accepte', '123456789', 2),
+       ('2022-01-02', 'refuse', '987654321', 2),
+       ('2022-01-02', 'en attente', '123456789',4);

@@ -68,8 +68,9 @@ function readAll() {
 }
 
 function update(data, id) {
+    console.log(data);
     return new Promise((resolve, reject) => {
-        if (data.typeUtilisateur === 'Candidat') {
+        if (data.typeUtilisateur  !==  'Recruteur') {
             data.organisation = null;
         }
         db.query(

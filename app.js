@@ -19,6 +19,7 @@ app.set('view engine', 'ejs');
 app.use(session({
     secret: require('crypto').randomBytes(32).toString('hex'),
     resave: false,
+    saveUninitialized: false,
 }))
 app.use(logger('dev'));
 app.use(express.json());

@@ -20,8 +20,11 @@ router.get('/', function (req, res, next) {
         res.redirect('/admin/users');
         return;
     }
-    // if the user type is entreprise, redirect to offers page
-    res.redirect('/entreprise/offres');
+    // if the user type is recruiter, redirect to offers page
+    if (req.session.user.typeUtilisateur === 'Recruteur') {
+        res.redirect('/recruteur/offres')
+    }
+
 });
 
 

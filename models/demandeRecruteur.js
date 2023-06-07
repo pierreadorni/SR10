@@ -20,15 +20,41 @@ const demandeRecruteur = {
             }
         );
     },
-    update: (data, id, callback) => {
+    readAllForOrganisation: (organisation, callback) => {
         db.query(
-            'UPDATE demandeRecruteur SET ? WHERE id = ?',
-            [data, id],
+            `SELECT utilisateur.nom,
+                utilisateur.prenom,
+                utilisateur.email,
+                demandeRecruteur.dateDemande,
+                demandeRecruteur.statut,
+                demandeRecruteur.id AS idDemande,
+                utilisateur.id AS idUtilisateur,
+                demandeRecruteur.organisation
+         FROM demandeRecruteur
+              INNER JOIN utilisateur
+                     ON demandeRecruteur.utilisateur = utilisateur.id
+         WHERE demandeRecruteur.organisation = ?`,
+            [organisation], // Place the array of parameters here, after the query string
             (error, results, fields) => {
                 if (error) throw error;
                 return callback(null, results);
             }
         );
+    },
+    update: (data) => {
+        return new Promise((resolve, reject) => {
+            db.query(
+                'UPDATE demandeRecruteur SET statut = ? WHERE id = ?',
+                [data.statut, data.id],
+                (error, results, fields) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(results);
+                    }
+                }
+            );
+        });
     },
     delete: (id, callback) => {
         db.query(
