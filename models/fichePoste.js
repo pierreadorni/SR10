@@ -12,7 +12,15 @@ const FichePoste = {
     },
     read: (id, callback) => {
         db.query(
-            'SELECT * FROM FichePoste INNER JOIN Organisation O on FichePoste.organisation = O.siren WHERE FichePoste.id = ?',
+            `SELECT  COUNT(DC.id) AS nbCandidatures, FichePoste.intitule, FichePoste.description, O.nom, FichePoste.fourchetteBasse, FichePoste.fourchetteHaute
+             FROM FichePoste
+                      INNER JOIN Organisation O
+                                 ON FichePoste.organisation = O.siren
+                      INNER JOIN Offre ON FichePoste.id = Offre.fichePoste
+                      INNER JOIN DossierCandidature DC on Offre.numeroOffre = DC.offre
+             WHERE FichePoste.id = ?
+             GROUP BY FichePoste.id
+            `,
             [id],
             (error, results, fields) => {
                 if (error) throw error;
@@ -80,7 +88,7 @@ const FichePoste = {
     readAllForOrganisation: (siren, callback) => {
         db.query(
             `
-                    SELECT FichePoste.id, COUNT(DC.id) AS nbCandidatures, FichePoste.intitule, FichePoste.description, O.nom
+                    SELECT FichePoste.id, COUNT(DC.id) AS nbCandidatures, FichePoste.intitule, FichePoste.description, O.nom, FichePoste.fourchetteBasse, FichePoste.fourchetteHaute
                     FROM FichePoste 
                     INNER JOIN Organisation O 
                     ON FichePoste.organisation = O.siren

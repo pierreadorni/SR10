@@ -5,6 +5,19 @@ const Utilisateur = require("../models/utilisateur");
 const Organisation = require("../models/organisation");
 const demandeRecruteur = require("../models/demandeRecruteur");
 const dossierCandidature = require("../models/dossierCandidature");
+
+// limit access to authenticated candidate users
+router.use((req, res, next) => {
+    if (!req.session.user) {
+        res.redirect('/login');
+        return;
+    }
+    if (req.session.user.typeUtilisateur !== 'Candidat') {
+        res.redirect('/');
+        return;
+    }
+    next();
+})
 router.get('/', (req, res) => {
     res.redirect('/candidat/offres')
 })
@@ -39,7 +52,7 @@ router.get('/request', (req, res) => {
 
 router.get('/applications', (req, res) => {
     dossierCandidature.readAllUser(req.session.user.id).then(result => {
-            res.render('candidat/applications', {
+        res.render('candidat/applications', {
             title: 'Liste des candidatures', candidatures: result
         });
     }).catch(err => {

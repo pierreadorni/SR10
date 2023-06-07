@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+<%- include('../partials/recruteurHeader', {activePage: 'usersList'}); %>
+
+<main>
+
+    <h2>Toutes les candidatures</h2>
+    <div class="w-100 d-flex justify-content-end gap-2">
+        <span class="badge btn-primary cursor-pointer active" id="all-badge">Toutes les candidatures</span>
+        <span class="badge btn-success cursor-pointer" id="acceptees-badge">Acceptées</span>
+        <span class="badge btn-danger cursor-pointer" id="refusees-badge">Refusées</span>
+        <span class="badge btn-info cursor-pointer" id="en-attente-badge">En attente</span>
+    </div>
+    <div class="shadow p-3 mb-5 bg-body rounded mt-4">
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center">Date de candidature</th>
+                <th scope="col" class="text-center">Nom</th>
+                <th scope="col" class="text-center">Prénom</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">Etat de la candidature</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% candidatures.forEach(function(candidature) { %>
+                <tr class="candidature-row">
+                    <td class="text-center align-middle"> <%= new Date(candidature.dateCandidature).toLocaleDateString() %> </td>
+                    <td class="text-center align-middle"> <%= candidature.nomUtilisateur %> </td>
+                    <td class="text-center align-middle"> <%= candidature.prenomUtilisateur %> </td>
+                    <td class="text-center align-middle"> <%= candidature.emailUtilisateur %> </td>
+                    <td class="text-center align-middle">
+                        <% if(candidature.statut == "accepté") { %>
+                            <span class="badge bg-success">Acceptée</span>
+                        <% } else if(candidature.statut == "refusé") { %>
+                            <span class="badge bg-danger">Refusée</span>
+                        <% } else { %>
+                            <span class="badge bg-info text-dark">En attente de traitement</span>
+                        <% } %>
+                    <td class="text-center">
+                        <a href="#" class="btn btn-primary">Consulter</a>
+                    </td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
+</main>
+</main>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+```
