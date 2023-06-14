@@ -4,6 +4,8 @@ const demandeRecruteur = require('../models/demandeRecruteur');
 const utilisateur = require('../models/utilisateur');
 const dossierCandidature = require('../models/dossierCandidature');
 const offre = require('../models/offre');
+const sha256 = require("sha256");
+const Utilisateur = require("../models/utilisateur");
 // limit access to authenticated Recruteur users
 router.use((req, res, next) => {
     if (!req.session.user) {
@@ -65,4 +67,33 @@ router.put('/requests/', (req, res) => {
             res.status(500).send('An error occurred');
         });
 });
+
+
+router.get('/account', (req, res) => {
+    res.render('recruteur/account', { title: 'Mon compte', user: req.session.user });
+});
+router.put('/account', function (req, res, next) {
+    const formData = req.body;
+
+    formData.typeUtilisateur = "Recruteur"
+    // for each entry in formData, if the value is empty, delete the key
+    for (let key in formData) {
+        if (formData[key] === '') {
+            delete formData[key];
+        }
+    }
+    // if the password is not empty, hash it
+    if (formData.password) {
+        formData.mdpHash = sha256(formData.password);
+        delete formData.password;
+    }
+    Utilisateur.update(formData, parseInt(req.session.user.id)).then(result => {
+        //update session user
+        req.session.user = Object.assign(req.session.user, formData);
+        res.status(200).json(result);
+    }).catch(err => {
+        console.log(err);
+    });
+})
+
 module.exports = router;

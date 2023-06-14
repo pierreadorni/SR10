@@ -5,6 +5,7 @@ const Utilisateur = require("../models/utilisateur");
 const Organisation = require("../models/organisation");
 const demandeRecruteur = require("../models/demandeRecruteur");
 const dossierCandidature = require("../models/dossierCandidature");
+const sha256 = require("sha256");
 
 // limit access to authenticated candidate users
 router.use((req, res, next) => {
@@ -35,7 +36,6 @@ router.get('/offres', (req, res) => {
 
 router.get('/offres/:id', (req, res) => {
     FichePoste.read(req.params.id, (err, result) => {
-        console.log(result)
         res.render('candidat/offer', {fichePoste: result});
     })
 })
@@ -49,6 +49,11 @@ router.get('/request', (req, res) => {
         console.log(err);
     })
 })
+
+router.get('/account', (req, res) => {
+    res.render('candidat/account', { title: 'Mon compte', user: req.session.user });
+});
+
 
 router.get('/applications', (req, res) => {
     dossierCandidature.readAllUser(req.session.user.id).then(result => {
@@ -81,5 +86,27 @@ router.post('/request', (req, res) => {
     })
 })
 
+router.put('/account', function (req, res, next) {
+    const formData = req.body;
+    // for each entry in formData, if the value is empty, delete the key
+    for (let key in formData) {
+        if (formData[key] === '') {
+            delete formData[key];
+        }
+    }
+    // if the password is not empty, hash it
+    if (formData.password) {
+        formData.mdpHash = sha256(formData.password);
+        delete formData.password;
+    }
+
+    Utilisateur.update(formData, parseInt(req.session.user.id)).then(result => {
+        //update session user
+        req.session.user = Object.assign(req.session.user, formData);
+        res.status(200).json(result);
+}).catch(err => {
+        console.log(err);
+    });
+})
 
 module.exports = router;
