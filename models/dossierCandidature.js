@@ -55,16 +55,20 @@ const DossierCandidature = {
     },
     readAllOffre: (offerId) => {
         return new Promise((resolve, reject) => {
-            console.log("ici");
             const query = `
         SELECT 
             DC.*,
             Utilisateur.nom AS nomUtilisateur,
             Utilisateur.prenom AS prenomUtilisateur,
-            Utilisateur.email AS emailUtilisateur
+            Utilisateur.email AS emailUtilisateur,
+            FP.organisation
         FROM DossierCandidature DC
         INNER JOIN Utilisateur
             ON DC.utilisateur = Utilisateur.id
+        INNER JOIN Offre
+            ON DC.offre = Offre.numeroOffre
+        INNER JOIN FichePoste FP
+            ON Offre.fichePoste = FP.id
         WHERE DC.offre = ?`;
             db.query(query, [offerId], (error, results, fields) => {
                 if (error) {

@@ -27,9 +27,18 @@ router.get('/offres', (req, res) => {
 
 router.get('/offre/:id', (req, res) => {
     offre.read(req.params.id, (err, result) => {
-        res.render('recruteur/offer', {req: req, offre: result[0]});
-    })
-})
+        // Check that session org is the same as the org of the offer
+        if (result[0].sirenOrganisation !== req.session.user.organisation) {
+            if (!res.headersSent) { // Check if headers have already been sent
+                // Display an alert message
+                res.send('<script>alert("You are not authorized to access this offer."); window.location.href="/recruteur/offres";</script>');
+            }
+            return;
+        }
+        res.render('recruteur/offer', { req: req, offre: result[0] });
+    });
+});
+
 
 router.get('/applications/:id/', (req, res) => {
 
@@ -37,6 +46,15 @@ router.get('/applications/:id/', (req, res) => {
     dossierCandidature.readAllOffre(req.params.id)
         .then(result => {
             console.log(result);
+            // Check that session org is the same as the org of the offer
+            if (result[0].organisation !== req.session.user.organisation) {
+                if (!res.headersSent) { // Check if headers have already been sent
+                    // Display an alert message
+                    res.send('<script>alert("You are not authorized to access this offer."); window.location.href="/recruteur/offres";</script>');
+                }
+                return;
+            }
+
             res.render('recruteur/applications', { req: req, candidatures: result });
         })
         .catch(err => {

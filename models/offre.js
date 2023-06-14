@@ -25,7 +25,7 @@ const Offre = {
                    FP.rythme,
                    FP.localisation,
                    Organisation.nom AS nomOrganisation,
-                   FP.organisation AS sirenOrganisation
+                   FP.organisation AS sirenOrganisation 
             FROM Offre
             INNER JOIN FichePoste FP ON Offre.fichePoste = FP.id
             INNER JOIN Organisation ON Organisation.siren = FP.organisation
