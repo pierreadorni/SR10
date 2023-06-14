@@ -9,14 +9,12 @@
 <main class="p-5 w-100">
     <h2>Liste des utilisateurs</h2>
     <div class="d-flex justify-content-between w-100">
-
         <%- include('../partials/searchBar', {'placeholder': 'rechercher parmi les utilisateurs', query: locals.query ? query : ''}); %>
-
-
         <div class="col-4 d-flex justify-content-end align-items-center gap-1">
-            <span class="badge bg-dark cursor-pointer">Admin</span>
-            <span class="badge bg-info cursor-pointer">Candidat</span>
-            <span class="badge bg-warning cursor-pointer">Recruteur</span>
+            <span class="badge btn-primary cursor-pointer active" id="all-badge">Toutes les candidatures</span>
+            <span class="badge bg-dark cursor-pointer" id="admin-badge">Admin</span>
+            <span class="badge bg-info cursor-pointer" id="candidat-badge">Candidat</span>
+            <span class="badge bg-warning cursor-pointer" id="recruteur-badge">Recruteur</span>
         </div>
     </div>
     <div class="shadow p-3 mb-5 bg-body rounded mt-4">
@@ -33,7 +31,7 @@
             </thead>
             <tbody>
             <% users.forEach(function(user) { %>
-                <tr>
+                <tr class="user-row" data-type="<%= user.typeUtilisateur %>">
                     <td class="text-center align-middle"><%= user.id %></td>
                     <td class="text-center align-middle"><%= user.nom %></td>
                     <td class="text-center align-middle"><%= user.prenom %></td>
@@ -43,30 +41,18 @@
                         <% } else { %>
                             <span class="badge bg-danger">Inactif</span>
                         <% } %>
-
                     </td>
                     <td class="text-center align-middle">
                         <% switch (user.typeUtilisateur) {
-                        case 'Administrateur':
-                        %>
+                        case 'Administrateur': %>
                         <span class="badge bg-dark"><%= user.typeUtilisateur %></span>
-                        <%
-                            break;
-                        case 'candidat':
-                        %>
+                        <% break;
+                        case 'Candidat': %>
                         <span class="badge bg-info"><%= user.typeUtilisateur %></span>
-                        <%
-                            break;
-                        case 'recruteur':
-                        %>
+                        <% break;
+                        case 'Recruteur': %>
                         <span class="badge bg-warning"><%= user.typeUtilisateur %></span>
-                        <%
-                            break;
-                        default:
-                        %>
-                        <span class="badge bg-warning"><%= user.typeUtilisateur %></span>
-                        <%
-                            break;
+                        <% break;
                         } %>
                     </td>
                     <td class="text-center">
@@ -80,5 +66,58 @@
 </main>
 <!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+
+<!-- filter rows -->
+<script>
+    var rows = document.getElementsByClassName('user-row');
+    var adminBadge = document.getElementById('admin-badge');
+    var candidatBadge = document.getElementById('candidat-badge');
+    var recruteurBadge = document.getElementById('recruteur-badge');
+    var allBadge = document.getElementById('all-badge');
+
+    adminBadge.addEventListener('click', function () {
+        setActiveButton(adminBadge);
+        filterRows('Administrateur');
+    });
+
+    candidatBadge.addEventListener('click', function () {
+        setActiveButton(candidatBadge);
+        filterRows('Candidat');
+    });
+
+    recruteurBadge.addEventListener('click', function () {
+        setActiveButton(recruteurBadge);
+        filterRows('Recruteur');
+    });
+
+    allBadge.addEventListener('click', function () {
+        setActiveButton(allBadge);
+        filterRows('all');
+    });
+
+    function setActiveButton(clickedButton) {
+        // Remove active class from all buttons
+        adminBadge.classList.remove('active');
+        candidatBadge.classList.remove('active');
+        recruteurBadge.classList.remove('active');
+        allBadge.classList.remove('active');
+
+        // Add active class to the clicked button
+        clickedButton.classList.add('active');
+    }
+
+    function filterRows(typeUtilisateur) {
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var rowType = row.getAttribute('data-type');
+            if (rowType === typeUtilisateur || typeUtilisateur === 'all') {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    }
+</script>
+
 </body>
 </html>
