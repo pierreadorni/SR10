@@ -115,6 +115,17 @@ const Offre = {
             }
         );
     },
+    search: (query, callback) => {
+        db.query(
+            `SELECT * FROM Offre INNER JOIN  FichePoste ON Offre.fichePoste = FichePoste.id
+    WHERE FichePoste.intitule LIKE ?`,
+            ['%' + query + '%'],
+            (error, results, fields) => {
+                if (error) throw error;
+                return callback(null, results);
+            }
+        );
+    },
     delete: (numeroOffre, callback) => {
         db.query(
             'DELETE FROM Offre WHERE numeroOffre = ?',
