@@ -45,7 +45,7 @@
                         <% } %>
                     <td class="text-center">
                         <a href="#" class="btn btn-primary">Consulter</a>
-                        <a href="#" class="btn btn-primary">Retirer</a>
+                        <button class="btn btn-danger"  onclick="deleteApplication(<%= candidature.id %>)">Supprimer</button>
                     </td>
                 </tr>
             <% }); %>
@@ -104,6 +104,24 @@
             }
         }
     }
+</script>
+
+<script>
+function deleteApplication(id) {
+    const data = {id: id};
+        fetch('/candidat/applications', {
+            method: 'DELETE',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(function (response) {
+            if (response.status === 200) {
+                window.location.reload();
+            }
+        });
+        }
+
 </script>
 
 </body>

@@ -30,6 +30,8 @@ router.get('/offre/:id', (req, res) => {
 })
 
 router.get('/applications/:id/', (req, res) => {
+
+    console.log(req, req.session.user.organisation);
     dossierCandidature.readAllOffre(req.params.id)
         .then(result => {
             console.log(result);
@@ -47,21 +49,20 @@ router.get('/requests', (req, res) => {
 })
 
 router.put('/requests/', (req, res) => {
-    let updateVal = {}
-    updateVal.statut = req.body.statut
-    updateVal.id = req.body.idDemande
+    let updateVal = {};
+    updateVal.statut = req.body.statut;
+    updateVal.id = req.body.idDemande;
     demandeRecruteur.update(updateVal)
         .then(result => {
             // Modification is effective, proceed with the redirection
             if (req.body.statut === 'accepte') {
-                utilisateur.update({typeUtilisateur: 'Recruteur', organisation: req.body.organisation}, req.body.idUtilisateur)
+                utilisateur.update({ typeUtilisateur: 'Recruteur', organisation: req.body.organisation }, req.body.idUtilisateur);
             }
-            res.redirect('back');
+            res.status(200).send('OK');
         })
         .catch(err => {
             // Handle the error appropriately
             res.status(500).send('An error occurred');
         });
-
 });
 module.exports = router;

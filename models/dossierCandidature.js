@@ -37,7 +37,8 @@ const DossierCandidature = {
                 Organisation.nom AS nomOrganisation,
                 FP.organisation AS sirenOrganisation,
                 DC.dateCandidature,
-                DC.statut
+                DC.statut,
+                DC.id
             FROM Offre 
             INNER JOIN FichePoste FP 
                 ON Offre.fichePoste = FP.id
@@ -84,15 +85,17 @@ const DossierCandidature = {
             }
         );
     },
-    delete: (id, callback) => {
-        db.query(
-            'DELETE FROM DossierCandidature WHERE id = ?',
-            [id],
-            (error, results, fields) => {
-                if (error) throw error;
-                return callback(null, results);
-            }
-        );
+    delete: (id) => {
+        return new Promise((resolve, reject) => {
+            db.query(
+                'DELETE FROM DossierCandidature WHERE id = ?',
+                [id],
+                (error, results, fields) => {
+                    if (error) reject(error);
+                    resolve(results);
+                }
+            );
+        });
     }
 };
 

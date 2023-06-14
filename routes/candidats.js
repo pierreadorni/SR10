@@ -59,6 +59,14 @@ router.get('/applications', (req, res) => {
         console.log(err);
     })
 })
+//We use a put request to delete the application since delete request does'nt support body
+router.delete('/applications', (req, res) => {
+    dossierCandidature.delete(req.body.id).then(result => {
+        res.status(200).json(result);
+    }).catch(err => {
+        console.log(err);
+    })
+})
 
 router.post('/request', (req, res) => {
     let data = req.body;
