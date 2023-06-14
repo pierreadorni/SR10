@@ -9,18 +9,15 @@
 <main class="p-5 w-100">
     <h2>Liste des requêtes</h2>
     <div class="d-flex justify-content-between w-100">
-
         <%- include('../partials/searchBar', {'placeholder': 'rechercher parmi les utilisateurs', query: locals.query ? query : ''}); %>
-
-
         <div class="col-4 d-flex justify-content-end align-items-center gap-1">
-            <span class="badge bg-dark cursor-pointer">Admin</span>
-            <span class="badge bg-info cursor-pointer">Candidat</span>
-            <span class="badge bg-warning cursor-pointer">Recruteur</span>
+            <span class="badge btn-primary cursor-pointer active" id="all-badge">Toutes les demandes</span>
+            <span class="badge btn-success cursor-pointer" id="acceptees-badge">Acceptées</span>
+            <span class="badge btn-danger cursor-pointer" id="refusees-badge">Refusées</span>
+            <span class="badge btn-warning cursor-pointer" id="en-attente-badge">En attente</span>
         </div>
     </div>
     <div class="shadow p-3 mb-5 bg-body rounded mt-4">
-
         <table class="table">
             <thead>
             <tr>
@@ -33,13 +30,13 @@
             </thead>
             <tbody>
             <% demandesRecruteurs.forEach(function(demande) { %>
-                <tr>
+                <tr class="request-row">
                     <td class="text-center align-middle"><%= demande.nom %></td>
                     <td class="text-center align-middle"><%= demande.prenom %></td>
                     <td class="text-center align-middle"><%= demande.email %></td>
                     <td class="text-center align-middle"><%= new Date(demande.dateDemande).toLocaleDateString() %></td>
                     <td class="text-center align-middle">
-                        <% if( demande.statut === 'en attente') { %>
+                        <% if (demande.statut === 'en attente') { %>
                             <span class="badge bg-warning text-dark">En attente</span>
                         <% } else if (demande.statut === 'accepte') { %>
                             <span class="badge bg-success">Acceptée</span>
@@ -47,9 +44,8 @@
                             <span class="badge bg-danger">Refusée</span>
                         <% } %>
                     </td>
-
                     <td class="text-center">
-                        <% if( demande.statut === 'en attente') { %>
+                        <% if (demande.statut === 'en attente') { %>
                             <button class="btn btn-success" onclick="acceptRequest('<%= demande.idDemande %>', '<%= demande.idUtilisateur %>', '<%= demande.organisation %>')">Accepter</button>
                             <button class="btn btn-danger" onclick="return refuseRequest('<%= demande.idDemande %>')">Refuser</button>
                         <% } %>
@@ -60,8 +56,62 @@
         </table>
     </div>
 </main>
+
 <!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+
+<!-- Filter rows -->
+<script>
+    var accepteesBadge = document.getElementById('acceptees-badge');
+    var refuseesBadge = document.getElementById('refusees-badge');
+    var enAttenteBadge = document.getElementById('en-attente-badge');
+    var rows = document.getElementsByClassName('request-row');
+    var allBadge = document.getElementById('all-badge');
+
+    accepteesBadge.addEventListener('click', function () {
+        setActiveButton(accepteesBadge);
+        filterRows('Acceptée');
+    });
+
+    refuseesBadge.addEventListener('click', function () {
+        setActiveButton(refuseesBadge);
+        filterRows('Refusée');
+    });
+
+    enAttenteBadge.addEventListener('click', function () {
+        setActiveButton(enAttenteBadge);
+        filterRows('En attente');
+    });
+
+    allBadge.addEventListener('click', function () {
+        setActiveButton(allBadge);
+        filterRows('all');
+    });
+
+    function setActiveButton(clickedButton) {
+        // Remove active class from all buttons
+        accepteesBadge.classList.remove('active');
+        refuseesBadge.classList.remove('active');
+        enAttenteBadge.classList.remove('active');
+        allBadge.classList.remove('active');
+
+        // Add active class to the clicked button
+        clickedButton.classList.add('active');
+    }
+
+    function filterRows(status) {
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var rowStatus = row.querySelector('.badge').innerText.toLowerCase();
+            if (rowStatus.toLowerCase() === status.toLowerCase() || status === 'all') {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    }
+</script>
+
 <script>
     function refuseRequest(idDemande) {
         const data = {
@@ -82,6 +132,7 @@
             }
         });
     }
+
     function acceptRequest(idDemande, idUtilisateur, organisation) {
         const data = {
             idDemande: idDemande,
@@ -103,11 +154,6 @@
             }
         });
     }
-
-
-
-
-
 </script>
 </body>
 </html>

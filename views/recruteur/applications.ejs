@@ -53,6 +53,56 @@
 </main>
 <!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+
+<script>
+    var accepteesBadge = document.getElementById('acceptees-badge');
+    var refuseesBadge = document.getElementById('refusees-badge');
+    var enAttenteBadge = document.getElementById('en-attente-badge');
+    var rows = document.getElementsByClassName('candidature-row');
+    var allBadge = document.getElementById('all-badge');
+
+    accepteesBadge.addEventListener('click', function () {
+        setActiveButton(accepteesBadge);
+        filterRows('acceptée');
+    });
+
+    refuseesBadge.addEventListener('click', function () {
+        setActiveButton(refuseesBadge);
+        filterRows('refusée');
+    });
+
+    enAttenteBadge.addEventListener('click', function () {
+        setActiveButton(enAttenteBadge);
+        filterRows('en attente de traitement');
+    });
+
+    allBadge.addEventListener('click', function () {
+        setActiveButton(allBadge);
+        filterRows('all');
+    });
+
+    function setActiveButton(clickedButton) {
+        // Remove active class from all buttons
+        accepteesBadge.classList.remove('active');
+        refuseesBadge.classList.remove('active');
+        enAttenteBadge.classList.remove('active');
+        allBadge.classList.remove('active');
+
+        // Add active class to the clicked button
+        clickedButton.classList.add('active');
+    }
+
+    function filterRows(status) {
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var rowStatus = row.querySelector('.badge').innerText.toLowerCase();
+            if (rowStatus === status || status === 'all') {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    }
+</script>
 </body>
 </html>
-```
