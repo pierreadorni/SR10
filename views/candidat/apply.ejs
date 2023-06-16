@@ -6,7 +6,24 @@
 <body>
 <%- include('../partials/candidatHeader'); %>
 
-<main>
+<main class="p-5 w-100">
+
+    <h2><%= offre.intitule %> - candidature</h2>
+
+    <p><%= offre.description %></p>
+
+    <div class="w-100 d-flex">
+        <div style="width:65%; border: 1px solid black; min-height: 500px; margin-right: 5%">
+            <iframe
+                    src="https://www.africau.edu/images/default/sample.pdf"
+                    width="100%"
+                    height="100%"
+            ></iframe>
+        </div>
+        <div style="width: 30%; border: 1px solid black; min-height: 500px;">
+
+        </div>
+    </div>
 
 </main>
 <!-- Bootstrap 5 JS -->
