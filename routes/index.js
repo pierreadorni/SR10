@@ -82,6 +82,7 @@ router.get('/logout', function (req, res, next) {
     res.redirect('/login');
 })
 
-
+// allow index.html to query the .js and .vue and .css files
+router.use('/vuejs', express.static(__dirname + '/../vue/public'));
 
 module.exports = router;
