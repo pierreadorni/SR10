@@ -20,7 +20,6 @@ function readByEmail(email) {
             [email],
             (error, results, fields) => {
                 if (error) reject(error);
-                console.log(results);
                 resolve(results[0]);
             }
         );
@@ -32,6 +31,19 @@ function read(id) {
         db.query(
             'SELECT * FROM Utilisateur WHERE id = ?',
             [id],
+            (error, results, fields) => {
+                if (error) reject(error);
+                resolve(results[0]);
+            }
+        );
+    })
+}
+
+function readfromMail(email) {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM Utilisateur WHERE email = ?',
+            [email],
             (error, results, fields) => {
                 if (error) reject(error);
                 resolve(results[0]);
@@ -68,7 +80,6 @@ function readAll() {
 }
 
 function update(data, id) {
-    console.log(data);
     return new Promise((resolve, reject) => {
         if (data.typeUtilisateur  !==  'Recruteur') {
             data.organisation = null;
@@ -106,5 +117,6 @@ module.exports = {
     readAll,
     update,
     remove,
-    search
+    search,
+    readfromMail
 }

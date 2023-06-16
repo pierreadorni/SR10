@@ -32,7 +32,7 @@ describe("User Tests", () => {
     });
 
     test("read user", async () => {
-        return user.read("test-jest@mytest.com").then((user) => {
+        return user.readfromMail("test-jest@mytest.com").then((user) => {
             expect(user.nom).toEqual("Jest")
         }).catch(err => {
             expect(err).toBeNull();

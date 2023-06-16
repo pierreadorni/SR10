@@ -63,10 +63,12 @@ router.post('/register', function (req, res, next) {
         mdpHash: sha256(req.body.password),
         nom: req.body.lastname,
         prenom: req.body.firstname,
+
         statutCompte: 'actif',
         typeUtilisateur: 'candidat',
         dateCreation: new Date(),
     }
+    console.log(data);
     Utilisateur.create(data, (error, user) => {
         if (error) {
             console.log(error);

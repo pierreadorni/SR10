@@ -40,14 +40,12 @@ router.get('/offres', (req, res) => {
 
 router.get('/offre/:id', (req, res) => {
     offre.read(req.params.id, (err, result) => {
-        console.log(result);
         res.render('candidat/offer', {offre: result[0]});
     })
 })
 
 router.get('/apply/:id', (req, res) => {
     offre.read(req.params.id, (err, result) => {
-        console.log(result);
         res.render('candidat/apply', {offre: result[0]});
     })
 })

@@ -41,11 +41,8 @@ router.get('/offre/:id', (req, res) => {
 
 
 router.get('/applications/:id/', (req, res) => {
-
-    console.log(req, req.session.user.organisation);
     dossierCandidature.readAllOffre(req.params.id)
         .then(result => {
-            console.log(result);
             // Check that session org is the same as the org of the offer
             if (result[0].organisation !== req.session.user.organisation) {
                 if (!res.headersSent) { // Check if headers have already been sent
@@ -54,7 +51,6 @@ router.get('/applications/:id/', (req, res) => {
                 }
                 return;
             }
-
             res.render('recruteur/applications', { req: req, candidatures: result });
         })
         .catch(err => {
