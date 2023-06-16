@@ -92,10 +92,10 @@ const Offre = {
                            Organisation.nom AS nomOrganisation,
                            FP.organisation  AS sirenOrganisation
                     FROM Offre
-                             INNER JOIN FichePoste FP
-                                        ON Offre.fichePoste = FP.id
-                             INNER JOIN Organisation
-                                        ON Organisation.siren = FP.organisation
+                        INNER JOIN FichePoste FP
+                        ON Offre.fichePoste = FP.id
+                            INNER JOIN Organisation
+                            ON Organisation.siren = FP.organisation
                 `
                 ,
                 (error, results, fields) => {
@@ -117,8 +117,25 @@ const Offre = {
     },
     search: (query, callback) => {
         db.query(
-            `SELECT * FROM Offre INNER JOIN  FichePoste ON Offre.fichePoste = FichePoste.id
-    WHERE FichePoste.intitule LIKE ?`,
+            `
+                SELECT Offre.numeroOffre,
+                       Offre.dateUpload,
+                       Offre.type,
+                       FP.intitule,
+                       FP.description,
+                       FP.fourchetteBasse,
+                       FP.fourchetteHaute,
+                       FP.typeMetier,
+                       FP.rythme,
+                       Organisation.nom AS nomOrganisation,
+                       FP.organisation  AS sirenOrganisation
+                FROM Offre
+                         INNER JOIN FichePoste FP
+                                    ON Offre.fichePoste = FP.id
+                         INNER JOIN Organisation
+                                    ON Organisation.siren = FP.organisation
+                WHERE FP.intitule LIKE ?
+            `,
             ['%' + query + '%'],
             (error, results, fields) => {
                 if (error) throw error;
