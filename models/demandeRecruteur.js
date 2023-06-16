@@ -22,17 +22,17 @@ const demandeRecruteur = {
     },
     readAllForOrganisation: (organisation, callback) => {
         db.query(
-            `SELECT utilisateur.nom,
-                utilisateur.prenom,
-                utilisateur.email,
+            `SELECT Utilisateur.nom,
+                Utilisateur.prenom,
+                Utilisateur.email,
                 demandeRecruteur.dateDemande,
                 demandeRecruteur.statut,
                 demandeRecruteur.id AS idDemande,
-                utilisateur.id AS idUtilisateur,
+                Utilisateur.id AS idUtilisateur,
                 demandeRecruteur.organisation
          FROM demandeRecruteur
-              INNER JOIN utilisateur
-                     ON demandeRecruteur.utilisateur = utilisateur.id
+              INNER JOIN Utilisateur
+                     ON demandeRecruteur.utilisateur = Utilisateur.id
          WHERE demandeRecruteur.organisation = ?`,
             [organisation], // Place the array of parameters here, after the query string
             (error, results, fields) => {
