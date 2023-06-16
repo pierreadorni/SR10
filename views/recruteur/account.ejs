@@ -1,12 +1,42 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Mes infos</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
+    <%- include('../partials/head'); %>
+    <style>
+        .container-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Added to align content vertically */
+        }
 
+
+        .background-color {
+            background: url("https://linkedin.com/sc/h/55k1z8997gh8dwtihm11aajyq") 50%/cover;
+            height: 300px;
+            position: relative;
+        }
+
+        .user-circle {
+            background-color: white;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .user-info {
+            position: absolute;
+            top: 170px;
+            left: 10%;
+            display: flex;
+            align-items: end;
+            gap: 20px
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body>
