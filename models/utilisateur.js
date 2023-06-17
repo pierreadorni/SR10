@@ -10,8 +10,9 @@ function create(data) {
                 resolve(results);
             }
         );
-    })
+    });
 }
+
 
 function readByEmail(email) {
     return new Promise((resolve, reject) => {

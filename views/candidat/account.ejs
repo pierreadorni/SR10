@@ -1,141 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('../partials/head'); %>
-    <style>
-        .container-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column; /* Added to align content vertically */
-        }
-
-
-        .background-color {
-            background: url("https://linkedin.com/sc/h/55k1z8997gh8dwtihm11aajyq") 50%/cover;
-            height: 300px;
-            position: relative;
-        }
-
-        .user-circle {
-            background-color: white;
-            border-radius: 50%;
-            width: 200px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .user-info {
-            position: absolute;
-            top: 170px;
-            left: 10%;
-            display: flex;
-            align-items: end;
-            gap: 20px
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <%- include('partials/head') %>
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
+<body class="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-light">
 
-<body>
-<%- include('../partials/candidatHeader', activePage=''); %>
-<main class="w-100">
-    <div class="container-center">
-        <div class="w-100 background-color">
-            <div class="user-info">
-                <div class="user-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" fill="currentColor"
-                         class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd"
-                              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-        <section class="mt-4 p-5">
-            <form class="container ms-0 w-100" onsubmit="return onSubmit(event)" method="DELETE">
-                <span data-user-id="<%= user.id %>"></span>
-                <div class="d-flex gap-2 w-100">
-                    <div>
-                        <label for="nom" class="form-label">Nom</label>
-                        <input name="nom" type="text" class="form-control" id="nom" value="<%= user.nom %>">
-                    </div>
-                    <div>
-                        <label for="prenom" class="form-label">Prénom</label>
-                        <input name="prenom" type="text" class="form-control" id="prenom" value="<%= user.prenom %>">
-                    </div>
-                </div>
-                <div class="mt-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input name="email" type="email" class="form-control" id="email" value="<%= user.email %>">
-                </div>
-                <div class="mt-3">
-                    <label for="password" class="form-label">Mot de passe</label>
-                    <input name="password" type="password" class="form-control" id="password"
-                           placeholder="******************">
-                </div>
-                <div class="d-flex justify-content-end gap-3">
-                    <a href="/candidat" class="btn btn-secondary mt-3">
-                        Retour
-                    </a>
-                    <input type="submit" class="btn btn-primary mt-3" value="Enregistrer">
-                </div>
-            </form>
-        </section>
+<div class="position-absolute top-0 left-0 mt-5 d-flex justify-content-center">
+    <div class="text-primary d-flex gap-2 align-items-end">
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                fill="currentColor"
+                class="bi bi-briefcase-fill"
+                viewBox="0 0 16 16"
+        >
+            <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"/>
+            <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"/>
+        </svg>
+        <h3>Jobify</h3>
     </div>
-</main>
+</div>
+
+<form class="form-login bg-white p-5 rounded col-lg-4 col-md-6 col-sm-8" method="post" action="/register">
+    <h1 class="text-center mb-4">Register</h1>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control">
+    </div>
+    <div class="d-flex gap-2">
+        <div class="mb-3">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input type="text" id="lastname" name="lastname" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="firstname" class="form-label">First Name</label>
+            <input type="text" id="firstname" name="firstname" class="form-control">
+        </div>
+    </div>
+    <input type="submit" value="Create Account" class="btn btn-primary">
+</form>
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
-<!-- Toastify JS -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+<!-- Toastify initialization -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-<script type="text/javascript">
-    // we want to update the user using PUT method, which is not supported by HTML forms.
-    // we need to use JavaScript and an XMLHttpRequest to do so.
-    const form = document.querySelector('form');
-    const id = parseInt(form.querySelector('[data-user-id]').dataset.userId);
+            // Perform your account creation logic here
+            // ...
 
-    // error may be undefined
-    const error = "<%= locals.error ? error : "" %>";
-    console.log(error)
-
-    // on page load, show toast if success
-    const urlParams = new URLSearchParams(window.location.search);
-    const success = urlParams.get('success');
-    if (success) {
-        Toastify({
-            text: "Compte modifié avec succès",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "green",
-            stopOnFocus: true,
-        }).showToast();
-    }
-
-
-    function onSubmit(e) {
-        // prevent the form from submitting
-        e.preventDefault();
-
-        // use fetch and json
-        const formData = new FormData(form);
-        fetch("/candidat/account/", {
-            method: 'PUT',
-            body: JSON.stringify(Object.fromEntries(formData)),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((r) => {
-            if (r.status < 400) {
-                window.location.href = window.location.href + '?success=true';
-            }
-        })
-    }
+            // Show toast notification on success
+            Toastify({
+                text: 'Account creation successful!',
+                duration: 3000, // 3 seconds
+                close: true,
+                gravity: 'top', // Position the toast at the top of the page
+                backgroundColor: 'green'
+            }).showToast();
+        });
+    });
 </script>
+
 </body>
 </html>

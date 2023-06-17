@@ -57,25 +57,25 @@ router.get('/register', function (req, res, next) {
     res.render('register', {title: 'Register'});
 })
 
+
 router.post('/register', function (req, res, next) {
     const data = {
         email: req.body.email,
         mdpHash: sha256(req.body.password),
         nom: req.body.lastname,
         prenom: req.body.firstname,
-
         statutCompte: 'actif',
         typeUtilisateur: 'candidat',
         dateCreation: new Date(),
     }
     console.log(data);
-    Utilisateur.create(data, (error, user) => {
-        if (error) {
+    Utilisateur.create(data)
+        .then((results) => {
+            res.redirect('/login');
+        })
+        .catch((error) => {
             console.log(error);
-            return;
-        }
-        res.redirect('/login');
-    })
+        });
 })
 
 // Logout route
