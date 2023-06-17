@@ -15,7 +15,7 @@ describe("Test the root path", () => {
             })
             .catch((error) => done(error));
     });
-    test("POST /login", (done) => {
+    test("POST /login admin", (done) => {
         request(app)
             .post("/login")
             .send({email: "admin@example.com", password: "123456"})
@@ -31,6 +31,39 @@ describe("Test the root path", () => {
             })
             .catch((error) => done(error));
     });
+    test("POST /login candidate", (done) => {
+        request(app)
+            .post("/login")
+            .send({email: "candidate@example.com", password: "123456"})
+            .then((response) => {
+                expect(response.statusCode).toBeLessThan(400);
+                expect(response.header.location).toBe("/");
+                request(app).get("/")
+                    .set('Cookie', response.header['set-cookie'])
+                    .then((response) => {
+                        expect(response.header.location).toBe("/candidat/offres");
+                        done();
+                    });
+            })
+            .catch((error) => done(error));
+    });
+    test("POST /login recruiter", (done) => {
+        request(app)
+            .post("/login")
+            .send({email: "recruiter@example.com", password: "123456"})
+            .then((response) => {
+                expect(response.statusCode).toBeLessThan(400);
+                expect(response.header.location).toBe("/");
+                request(app).get("/")
+                    .set('Cookie', response.header['set-cookie'])
+                    .then((response) => {
+                        expect(response.header.location).toBe("/recruteur/offres");
+                        done();
+                    });
+            })
+            .catch((error) => done(error));
+    });
+
     test("POST /login with wrong password", (done) => {
         request(app)
             .post("/login")
