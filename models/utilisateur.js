@@ -111,6 +111,21 @@ function remove(id) {
     })
 }
 
+function deletefromMail(mail) {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'DELETE FROM Utilisateur WHERE email = ?',
+            [mail],
+            (error, results, fields) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results);
+            }
+        );
+    })
+}
+
 module.exports = {
     create,
     read,
@@ -119,5 +134,6 @@ module.exports = {
     update,
     remove,
     search,
-    readfromMail
+    readfromMail,
+    deletefromMail
 }
