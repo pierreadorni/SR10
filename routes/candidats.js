@@ -6,6 +6,23 @@ const demandeRecruteur = require("../models/demandeRecruteur");
 const dossierCandidature = require("../models/dossierCandidature");
 const offre = require("../models/offre");
 const sha256 = require("sha256");
+const multer = require("multer");
+const {application} = require("express");
+const FichierCandidature = require("../models/fichierCandidature");
+const uuid = require("uuid").v4;
+const fs = require("fs");
+
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        let extArray = file.mimetype.split("/");
+        let extension = extArray[extArray.length - 1];
+        cb(null, uuid() + '.' + extension)
+    }
+})
+const upload = multer({storage: storage})
 
 // limit access to authenticated candidate users
 router.use((req, res, next) => {
@@ -40,17 +57,71 @@ router.get('/offres', (req, res) => {
 
 router.get('/offre/:id', (req, res) => {
     offre.read(req.params.id, (err, result) => {
-        res.render('candidat/offer', {offre: result[0]});
-    })
-})
-
-router.get('/apply/:id', (req, res) => {
-    offre.read(req.params.id, (err, result) => {
-        res.render('candidat/apply', {offre: result[0]});
+        dossierCandidature.getFromUserAndOffer(req.session.user.id, req.params.id).then(resultDossier => {
+            res.render('candidat/offer', {offre: result[0], application: resultDossier});
+        })
     })
 })
 
 
+router.post('/apply/:offerId', (req, res) => {
+    dossierCandidature.create({
+        utilisateur: req.session.user.id,
+        offre: req.params.offerId,
+        dateCandidature: new Date(),
+        statut: 'brouillon'
+    }).then(result => {
+        res.redirect('/candidat/apply/' + result.insertId);
+    })
+})
+
+router.get('/apply/:applicationId', (req, res) => {
+    dossierCandidature.read(req.params.applicationId).then(resultDossier => {
+        dossierCandidature.fichiers(req.params.applicationId).then(resultFichiers => {
+            offre.read(resultDossier.offre, (err, result) => {
+                res.render('candidat/apply', {offre: result[0], application: resultDossier, fichiers: resultFichiers});
+            })
+        })
+    })
+})
+router.post('/apply/:applicationId/upload', upload.single('file'), (req, res) => {
+    FichierCandidature.create({
+        dossierCandidature: req.params.applicationId,
+        dateUpload: new Date(),
+        path: req.file.path,
+        originalname: req.file.originalname
+    }).then(result => {
+        res.status(201).json({
+            path: req.file.path,
+            originalName: req.file.originalname,
+        });
+    }).catch(err => {
+        res.status(500).json({error: err});
+    })
+})
+
+router.delete('/apply/:applicationId/file/:fileId', (req, res) => {
+    FichierCandidature.read(req.params.fileId).then(result => {
+        fs.unlink(result.path, (err) => {
+            if (err) res.status(500).json({error: err});
+            FichierCandidature.delete(req.params.fileId).then(result => {
+                console.log(result);
+                res.status(204).json({});
+            }).catch(err => {
+                res.status(500).json({error: err});
+            })
+        })
+    })
+})
+
+router.post('/apply/:applicationId/validate', (req, res) => {
+    console.log(req.params)
+    dossierCandidature.update( {statut: 'en attente de traitement'}, req.params.applicationId).then(result => {
+        res.redirect('/candidat/applications');
+    }).catch(err => {
+        console.log(err);
+    })
+})
 
 router.get('/request', (req, res) => {
     Organisation.readAll().then(result => {
@@ -63,7 +134,7 @@ router.get('/request', (req, res) => {
 })
 
 router.get('/account', (req, res) => {
-    res.render('candidat/account', { title: 'Mon compte', user: req.session.user });
+    res.render('candidat/account', {title: 'Mon compte', user: req.session.user});
 });
 
 
@@ -116,7 +187,7 @@ router.put('/account', function (req, res, next) {
         //update session user
         req.session.user = Object.assign(req.session.user, formData);
         res.status(200).json(result);
-}).catch(err => {
+    }).catch(err => {
         console.log(err);
     });
 })

@@ -1,24 +1,41 @@
 const db = require("../database");
 const DossierCandidature = {
-    create: (data, callback) => {
-        db.query(
-            'INSERT INTO DossierCandidature SET ?',
-            data,
-            (error, results, fields) => {
-                if (error) throw error;
-                return callback(null, results);
-            }
-        );
+    create: (data) => {
+        return new Promise((resolve, reject) => {
+            db.query(
+                'INSERT INTO DossierCandidature SET ?',
+                data,
+                (error, results, fields) => {
+                    if (error) reject(error);
+                    return resolve(results);
+                }
+            );
+        })
+
     },
-    read: (id, callback) => {
-        db.query(
-            'SELECT * FROM DossierCandidature WHERE id = ?',
-            [id],
-            (error, results, fields) => {
-                if (error) throw error;
-                return callback(null, results[0]);
-            }
-        );
+    read: (id) => {
+        return new Promise((resolve, reject) => {
+            db.query(
+                'SELECT * FROM DossierCandidature WHERE id = ?',
+                [id],
+                (error, results, fields) => {
+                    if (error) reject(error);
+                    resolve(results[0]);
+                }
+            );
+        })
+    },
+    fichiers: (id) => {
+      return new Promise((resolve, reject) => {
+            db.query(
+                'SELECT * FROM FichierCandidature WHERE dossierCandidature = ?',
+                [id],
+                (error, results, fields) => {
+                    if (error) reject(error);
+                    resolve(results);
+                }
+            );
+      })
     },
     readAllUser: (user) => {
         return new Promise((resolve, reject) => {
@@ -79,15 +96,44 @@ const DossierCandidature = {
             });
         });
     },
-    update: (data, id, callback) => {
-        db.query(
-            'UPDATE DossierCandidature SET ? WHERE id = ?',
-            [data, id],
-            (error, results, fields) => {
-                if (error) throw error;
-                return callback(null, results);
-            }
-        );
+    getFromUserAndOffer: (user, offer) => {
+        return new Promise((resolve, reject) => {
+            const query = `
+            SELECT 
+                DC.*,
+                Utilisateur.nom AS nomUtilisateur,
+                Utilisateur.prenom AS prenomUtilisateur,
+                Utilisateur.email AS emailUtilisateur,
+                FP.organisation
+            FROM DossierCandidature DC
+            INNER JOIN Utilisateur
+                ON DC.utilisateur = Utilisateur.id
+            INNER JOIN Offre
+                ON DC.offre = Offre.numeroOffre
+            INNER JOIN FichePoste FP
+                ON Offre.fichePoste = FP.id
+            WHERE DC.offre = ? AND DC.utilisateur = ?`;
+            db.query(query, [offer, user], (error, results, fields) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    console.log(results);
+                    resolve(results[0]);
+                }
+            });
+        });
+    },
+    update: (data, id) => {
+        return new Promise((resolve, reject) => {
+            db.query(
+                'UPDATE DossierCandidature SET ? WHERE id = ?',
+                [data, id],
+                (error, results, fields) => {
+                    if (error) reject(error);
+                    return resolve(results);
+                }
+            );
+        })
     },
     delete: (id) => {
         return new Promise((resolve, reject) => {

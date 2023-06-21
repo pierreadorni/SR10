@@ -29,7 +29,7 @@ const Offre = {
             FROM Offre
             INNER JOIN FichePoste FP ON Offre.fichePoste = FP.id
             INNER JOIN Organisation ON Organisation.siren = FP.organisation
-            INNER JOIN DossierCandidature DC ON Offre.numeroOffre = DC.offre
+            LEFT OUTER JOIN DossierCandidature DC ON Offre.numeroOffre = DC.offre
             WHERE Offre.numeroOffre = ?
             GROUP BY Offre.numeroOffre
         `,

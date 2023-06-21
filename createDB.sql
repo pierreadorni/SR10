@@ -46,7 +46,7 @@ CREATE TABLE FichePoste
     fourchetteBasse INT          NOT NULL,
     fourchetteHaute INT          NOT NULL,
     description     TEXT         NOT NULL,
-    localisation VARCHAR(255) NOT NULL,
+    localisation    VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (organisation) REFERENCES Organisation (siren) ON DELETE CASCADE
 );
@@ -63,15 +63,15 @@ CREATE TABLE Offre
 
 CREATE TABLE DossierCandidature
 (
-    id              INT                                                                NOT NULL AUTO_INCREMENT,
-    dateCandidature DATE                                                               NOT NULL,
-    statut          ENUM ('refusé', 'en attente de traitement', 'accepté') NOT NULL,
+    id              INT                                                    NOT NULL AUTO_INCREMENT,
+    dateCandidature DATE                                                   NOT NULL,
+    statut          ENUM ('brouillon', 'refusé', 'en attente de traitement', 'accepté') NOT NULL,
     utilisateur     INT,
     offre           INT,
     PRIMARY KEY (id),
     FOREIGN KEY (utilisateur) REFERENCES Utilisateur (id) ON DELETE CASCADE,
     FOREIGN KEY (offre) REFERENCES Offre (numeroOffre) ON DELETE CASCADE,
-    CHECK (statut IN ('refusé', 'en attente de traitement', 'accepté'))
+    CHECK (statut IN ('brouillon', 'refusé', 'en attente de traitement', 'accepté'))
 );
 
 CREATE TABLE Document
@@ -98,7 +98,16 @@ CREATE TABLE demandeRecruteur
     CHECK (statut IN ('en attente', 'refuse', 'accepte'))
 );
 
-
+CREATE TABLE FichierCandidature
+(
+    id         INT          NOT NULL AUTO_INCREMENT,
+    dateUpload DATE         NOT NULL,
+    path       VARCHAR(255) NOT NULL,
+    originalName   VARCHAR(255) NOT NULL,
+    dossierCandidature INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (dossierCandidature) REFERENCES DossierCandidature (id) ON DELETE CASCADE
+);
 
 
 

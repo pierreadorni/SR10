@@ -26,11 +26,17 @@
                 Retour
             </button>
         </a>
-        <a href="/candidat/apply/<%= offre.numeroOffre %>">
-            <button class="btn btn-primary">
-                Postuler
-            </button>
-        </a>
+        <% if (application === undefined) { %>
+        <form action="/candidat/apply/<%= offre.numeroOffre %>" method="POST">
+            <input type="submit" value="Postuler" class="btn btn-primary">
+        </form>
+        <% } else { %>
+            <a href="/candidat/apply/<%= application.id %>">
+                <button class="btn btn-primary">
+                    Voir ma candidature
+                </button>
+            </a>
+        <% } %>
     </div>
 
 </main>

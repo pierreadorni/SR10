@@ -3,7 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const session = require('express-session')
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 const indexRouter = require('./routes');
 const candidatsRouter = require('./routes/candidats');
 const bodyParser = require("body-parser");
@@ -15,21 +16,22 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// session with 32 chars random secret
+// session with 32 chars random secret on
 app.use(session({
     secret: require('crypto').randomBytes(32).toString('hex'),
     resave: false,
     saveUninitialized: false,
+    store: new FileStore(),
 }))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// static files in uploads folder at /uploads
+app.use("/uploads", express.static('uploads'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
-// multer for form-data
-app.use(multer().none())
 
 // make sure any unauthenticated user is redirected to login page unless the url is prefixed with /api
 app.use((req, res, next) => {
