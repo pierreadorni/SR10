@@ -6,6 +6,8 @@ const dossierCandidature = require('../models/dossierCandidature');
 const offre = require('../models/offre');
 const sha256 = require("sha256");
 const Utilisateur = require("../models/utilisateur");
+const FichePoste = require("../models/fichePoste");
+
 // limit access to authenticated Recruteur users
 router.use((req, res, next) => {
     if (!req.session.user) {
@@ -80,6 +82,44 @@ router.put('/requests/', (req, res) => {
             // Handle the error appropriately
             res.status(500).send('An error occurred');
         });
+});
+
+router.get('/createOffer', (req, res) => {
+    FichePoste.readAllForOrganisation(req.session.user.organisation, (error, result) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(result);
+            res.render('recruteur/createOffer', { fichesPoste: result });
+        }
+    });
+});
+
+router.post('/createOffer', (req, res) => {
+    const formData = req.body;
+    offre.create(formData, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/recruteur/offres');
+        }
+    });
+});
+
+router.get('/createFiche', (req, res) => {
+    res.render('recruteur/createFiche');
+});
+
+router.post('/createFiche', (req, res) => {
+    const formData = req.body;
+    formData.organisation = req.session.user.organisation;
+    FichePoste.create(formData, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/recruteur/createOffer');
+        }
+    });
 });
 
 

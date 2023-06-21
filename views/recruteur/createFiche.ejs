@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body>
+<%- include('../partials/candidatHeader', activePage=''); %>
+<main class="w-100">
+
+    <section class="mt-4 p-5">
+        <form class="container ms-0 w-100" method="POST">
+            <div class="mb-3">
+                <label for="intitule" class="form-label">Intitulé</label>
+                <input type="text" class="form-control" id="intitule" name="intitule" required>
+            </div>
+            <div class="mb-3">
+                <label for="responsable" class="form-label">Responsable</label>
+                <input type="text" class="form-control" id="responsable" name="responsable" required>
+            </div>
+            <div class="mb-3">
+                <label for="typeMetier" class="form-label">Type de métier</label>
+                <input type="text" class="form-control" id="typeMetier" name="typeMetier" required>
+            </div>
+            <div class="mb-3">
+                <label for="rythme" class="form-label">Rythme</label>
+                <input type="text" class="form-control" id="rythme" name="rythme" required>
+            </div>
+            <div class="mb-3">
+                <label for="fourchetteBasse" class="form-label">Fourchette Basse</label>
+                <input type="text" class="form-control" id="fourchetteBasse" name="fourchetteBasse" pattern="\d+" required>
+            </div>
+            <div class="mb-3">
+                <label for="fourchetteHaute" class="form-label">Fourchette Haute</label>
+                <input type="text" class="form-control" id="fourchetteHaute" name="fourchetteHaute" pattern="\d+" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="localisation" class="form-label">Localisation</label>
+                <input type="text" class="form-control" name="localisation" id="localisation" required>
+            </div>
+
+            <div class="d-flex justify-content-end gap-3">
+                <a href="offres" class="btn btn-secondary mt-3">
+                    Retour
+                </a>
+                <input type="submit" class="btn btn-primary mt-3" value="Enregistrer">
+            </div>
+        </form>
+    </section>
+
+</main>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</body>
+</html>

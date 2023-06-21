@@ -38,7 +38,7 @@ CREATE TABLE FichePoste
 (
     id              INT          NOT NULL AUTO_INCREMENT,
     organisation    VARCHAR(255),
-    dateUpload      DATE         NOT NULL,
+    dateUpload      DATE         NOT NULL DEFAULT (CURRENT_DATE),
     intitule        VARCHAR(255) NOT NULL,
     responsable     VARCHAR(255) NOT NULL,
     typeMetier      VARCHAR(255) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE FichePoste
 CREATE TABLE Offre
 (
     numeroOffre INT          NOT NULL AUTO_INCREMENT,
-    dateUpload  DATE         NOT NULL,
+    dateUpload  DATE         NOT NULL DEFAULT (CURRENT_DATE),
     type        VARCHAR(255) NOT NULL,
     fichePoste  INT          NOT NULL,
     PRIMARY KEY (numeroOffre),
@@ -64,7 +64,7 @@ CREATE TABLE Offre
 CREATE TABLE DossierCandidature
 (
     id              INT                                                    NOT NULL AUTO_INCREMENT,
-    dateCandidature DATE                                                   NOT NULL,
+    dateCandidature DATE                                                   NOT NULL DEFAULT (CURRENT_DATE),
     statut          ENUM ('brouillon', 'refusé', 'en attente de traitement', 'accepté') NOT NULL,
     utilisateur     INT,
     offre           INT,

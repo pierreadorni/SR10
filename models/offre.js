@@ -62,10 +62,9 @@ const Offre = {
                                     ON Offre.fichePoste = FP.id
                          INNER JOIN Organisation
                                     ON Organisation.siren = FP.organisation
-                         INNER JOIN DossierCandidature DC on Offre.numeroOffre = DC.offre
+                         LEFT JOIN DossierCandidature DC on Offre.numeroOffre = DC.offre
                 WHERE FP.organisation = ?
                 GROUP BY Offre.numeroOffre
-                
             `,
             [siren],
                 (error, results, fields) => {
