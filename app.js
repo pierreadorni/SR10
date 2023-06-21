@@ -28,7 +28,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// static files in uploads folder at /uploads
 app.use("/uploads", express.static('uploads'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));

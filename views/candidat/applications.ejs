@@ -12,6 +12,7 @@
         <span class="badge btn-success cursor-pointer" id="acceptees-badge">Acceptées</span>
         <span class="badge btn-danger cursor-pointer" id="refusees-badge">Refusées</span>
         <span class="badge btn-info cursor-pointer" id="en-attente-badge">En attente</span>
+        <span class="badge btn-secondary cursor-pointer" id="brouillon-badge">Brouillon</span>
     </div>
     <div class="shadow p-3 mb-5 bg-body rounded mt-4">
         <table class="table ">
@@ -40,12 +41,14 @@
                             <span class="badge bg-success">Acceptée</span>
                         <% } else if(candidature.statut == "refusé") { %>
                             <span class="badge bg-danger">Refusée</span>
+                        <% } else if (candidature.statut == "brouillon") { %>
+                            <span class="badge bg-secondary">Brouillon</span>
                         <% } else { %>
                             <span class="badge bg-info text-dark">En attente de traitement</span>
                         <% } %>
                     <td class="text-center">
-                        <a href="#" class="btn btn-primary">Consulter</a>
-                        <button class="btn btn-danger"  onclick="deleteApplication(<%= candidature.id %>)">Supprimer</button>
+                        <a href="/candidat/apply/<%= candidature.id %>" class="btn btn-primary">Consulter</a>
+                        <!--                        <button class="btn btn-danger"  onclick="deleteApplication(<%= candidature.id %>)">Supprimer</button>-->
                     </td>
                 </tr>
             <% }); %>
@@ -58,11 +61,12 @@
 
 <!-- filter rows -->
 <script>
-    var accepteesBadge = document.getElementById('acceptees-badge');
-    var refuseesBadge = document.getElementById('refusees-badge');
-    var enAttenteBadge = document.getElementById('en-attente-badge');
-    var rows = document.getElementsByClassName('candidature-row');
-    var allBadge = document.getElementById('all-badge');
+    const accepteesBadge = document.getElementById('acceptees-badge');
+    const refuseesBadge = document.getElementById('refusees-badge');
+    const enAttenteBadge = document.getElementById('en-attente-badge');
+    const brouillonBadge = document.getElementById('brouillon-badge');
+    const rows = document.getElementsByClassName('candidature-row');
+    const allBadge = document.getElementById('all-badge');
 
     accepteesBadge.addEventListener('click', function () {
         setActiveButton(accepteesBadge);
@@ -77,6 +81,11 @@
     enAttenteBadge.addEventListener('click', function () {
         setActiveButton(enAttenteBadge);
         filterRows('en attente de traitement');
+    });
+
+    brouillonBadge.addEventListener('click', function () {
+        setActiveButton(brouillonBadge);
+        filterRows('brouillon');
     });
 
     allBadge.addEventListener('click', function () {
@@ -109,8 +118,8 @@
 </script>
 
 <script>
-function deleteApplication(id) {
-    const data = {id: id};
+    function deleteApplication(id) {
+        const data = {id: id};
         fetch('/candidat/applications', {
             method: 'DELETE',
             body: JSON.stringify(data),
@@ -122,7 +131,7 @@ function deleteApplication(id) {
                 window.location.reload();
             }
         });
-        }
+    }
 
 </script>
 

@@ -68,7 +68,7 @@
 
 <main class="p-5 w-100">
 
-    <h2><%= offre.intitule %> - candidature</h2>
+    <h2><%= offre.intitule %> - candidature<span class="badge bg-secondary ms-3">Brouillon</span></h2>
 
     <p><%= offre.description %></p>
 
@@ -93,7 +93,8 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end gap-3">
+        <button class="btn btn-secondary mt-3" onclick="history.back()">Retour</button>
         <form action="/candidat/apply/<%= application.id %>/validate" method="POST">
             <input class="btn btn-primary mt-3" value="Valider le dossier" type="submit"/>
         </form>

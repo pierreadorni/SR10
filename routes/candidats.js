@@ -77,11 +77,42 @@ router.post('/apply/:offerId', (req, res) => {
 
 router.get('/apply/:applicationId', (req, res) => {
     dossierCandidature.read(req.params.applicationId).then(resultDossier => {
-        dossierCandidature.fichiers(req.params.applicationId).then(resultFichiers => {
-            offre.read(resultDossier.offre, (err, result) => {
-                res.render('candidat/apply', {offre: result[0], application: resultDossier, fichiers: resultFichiers});
-            })
-        })
+        switch (resultDossier.statut) {
+            case 'brouillon':
+                dossierCandidature.fichiers(req.params.applicationId).then(resultFichiers => {
+                    offre.read(resultDossier.offre, (err, result) => {
+                        res.render('candidat/application-brouillon', {
+                            offre: result[0],
+                            application: resultDossier,
+                            fichiers: resultFichiers
+                        });
+                    })
+                })
+                break;
+            case 'en attente de traitement':
+                dossierCandidature.fichiers(req.params.applicationId).then(resultFichiers => {
+                    offre.read(resultDossier.offre, (err, result) => {
+                        res.render('candidat/application-en-attente', {
+                            offre: result[0],
+                            application: resultDossier,
+                            fichiers: resultFichiers
+                        });
+                    })
+                })
+                break;
+            case 'refusé':
+                offre.read(resultDossier.offre, (err, result) => {
+                    res.render('candidat/application-refuse', {offre: result[0], application: resultDossier});
+                })
+                break;
+            case 'accepté':
+                offre.read(resultDossier.offre, (err, result) => {
+                    res.render('candidat/application-accepte', {offre: result[0], application: resultDossier});
+                })
+                break;
+            default:
+                res.redirect('/candidat/offres');
+        }
     })
 })
 router.post('/apply/:applicationId/upload', upload.single('file'), (req, res) => {
@@ -116,7 +147,7 @@ router.delete('/apply/:applicationId/file/:fileId', (req, res) => {
 
 router.post('/apply/:applicationId/validate', (req, res) => {
     console.log(req.params)
-    dossierCandidature.update( {statut: 'en attente de traitement'}, req.params.applicationId).then(result => {
+    dossierCandidature.update({statut: 'en attente de traitement'}, req.params.applicationId).then(result => {
         res.redirect('/candidat/applications');
     }).catch(err => {
         console.log(err);
