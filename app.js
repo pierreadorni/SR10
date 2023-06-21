@@ -16,9 +16,9 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// session with 32 chars random secret on
 app.use(session({
-    secret: require('crypto').randomBytes(32).toString('hex'),
+    // secret: require('crypto').randomBytes(32).toString('hex'),
+    secret: "chèvre", // same secret after restart to keep sessions alive during development
     resave: false,
     saveUninitialized: false,
     store: new FileStore(),
@@ -28,7 +28,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// static files in uploads folder at /uploads
 app.use("/uploads", express.static('uploads'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));

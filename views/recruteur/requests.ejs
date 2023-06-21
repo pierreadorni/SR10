@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
-<head>
+<tail>
     <%- include('../partials/head'); %>
-</head>
+</tail>
 <body>
 <%- include('../partials/recruteurHeader', {activePage: 'usersList'}); %>
 
@@ -17,7 +17,7 @@
             <span class="badge btn-warning cursor-pointer" id="en-attente-badge">En attente</span>
         </div>
     </div>
-    <div class="shadow p-3 mb-5 bg-body rounded mt-4">
+    <div class="shadow border p-3 mb-5 bg-body rounded mt-4">
         <table class="table">
             <thead>
             <tr>
@@ -26,6 +26,7 @@
                 <th class="text-center" scope="col">Email</th>
                 <th class="text-center" scope="col">Date de la demande</th>
                 <th class="text-center" scope="col">Statut</th>
+                <th class="text-center" scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>

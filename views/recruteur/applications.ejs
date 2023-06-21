@@ -15,8 +15,8 @@
         <span class="badge btn-danger cursor-pointer" id="refusees-badge">Refusées</span>
         <span class="badge btn-info cursor-pointer" id="en-attente-badge">En attente</span>
     </div>
-    <div class="shadow p-3 mb-5 bg-body rounded mt-4">
-        <table class="table ">
+    <div class="shadow border p-3 mb-5 bg-body rounded mt-4">
+        <table class="table">
             <thead>
             <tr>
                 <th scope="col" class="text-center">Date de candidature</th>
@@ -35,15 +35,15 @@
                     <td class="text-center align-middle"> <%= candidature.prenomUtilisateur %> </td>
                     <td class="text-center align-middle"> <%= candidature.emailUtilisateur %> </td>
                     <td class="text-center align-middle">
-                        <% if(candidature.statut == "accepté") { %>
+                        <% if(candidature.statut === "accepté") { %>
                             <span class="badge bg-success">Acceptée</span>
-                        <% } else if(candidature.statut == "refusé") { %>
+                        <% } else if(candidature.statut === "refusé") { %>
                             <span class="badge bg-danger">Refusée</span>
                         <% } else { %>
                             <span class="badge bg-info text-dark">En attente de traitement</span>
                         <% } %>
                     <td class="text-center">
-                        <a href="#" class="btn btn-primary">Consulter</a>
+                        <a href="/recruteur/application/<%= candidature.id %>" class="btn btn-primary">Consulter</a>
                     </td>
                 </tr>
             <% }); %>
