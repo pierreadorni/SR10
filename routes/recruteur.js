@@ -30,7 +30,7 @@ router.get('/offres', (req, res) => {
 })
 
 router.get('/offre/:id', (req, res) => {
-    offre.read(req.params.id, (err, result) => {
+    offre.read(req.params.id).then(result => {
         // Check that session org is the same as the org of the offer
         if (result[0].sirenOrganisation !== req.session.user.organisation) {
             if (!res.headersSent) { // Check if headers have already been sent
