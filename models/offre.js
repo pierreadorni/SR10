@@ -10,9 +10,10 @@ const Offre = {
             }
         );
     },
-    read: (offerId, callback) => {
-        db.query(
-            `
+    read: (offerId) => {
+        return new Promise((resolve, reject) => {
+            db.query(
+                `
             SELECT Offre.numeroOffre,
                    Offre.dateUpload,
                    Offre.type,
@@ -33,12 +34,13 @@ const Offre = {
             WHERE Offre.numeroOffre = ?
             GROUP BY Offre.numeroOffre
         `,
-            [offerId],
-            (error, results, fields) => {
-                if (error) throw error;
-                return callback(null, results);
-            }
-        );
+                [offerId],
+                (error, results, fields) => {
+                    if (error) reject(error);
+                    return resolve(results);
+                }
+            );
+        })
     },
 
     readAllForOrganisation: (siren, callback) => {

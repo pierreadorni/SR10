@@ -16,7 +16,13 @@ const DossierCandidature = {
     read: (id) => {
         return new Promise((resolve, reject) => {
             db.query(
-                'SELECT * FROM DossierCandidature WHERE id = ?',
+                `
+                    SELECT DC.*, FP.organisation, U.nom AS nomUtilisateur, U.prenom AS prenomUtilisateur, U.email AS emailUtilisateur
+                    FROM DossierCandidature DC
+                    INNER JOIN Offre O on DC.offre = O.numeroOffre
+                    INNER JOIN FichePoste FP on O.fichePoste = FP.id
+                    INNER JOIN Utilisateur U on DC.utilisateur = U.id
+                    WHERE DC.id = ?`,
                 [id],
                 (error, results, fields) => {
                     if (error) reject(error);

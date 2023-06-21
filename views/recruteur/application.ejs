@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <style>
+        #dropzone {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            width: 30%;
+            border: 1px solid black;
+            min-height: 500px;
+            position: relative;
+        }
+
+        #dropzone.dragged {
+            background-color: #e9ecef;
+            /* inside border - - - -*/
+            border: 1px dashed #000;
+        }
+
+        #filesListContainer{
+            width: 100%;
+        }
+
+        .fileEntry {
+            padding: 10px;
+            border-bottom: 1px solid #e9ecef;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .fileEntry.selected {
+            background-color: #e9ecef;
+        }
+
+        .fileEntry span{
+            display: block;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .iframe-placeholder{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+<%- include('../partials/recruteurHeader', {activePage: 'application'}); %>
+
+<main class="p-5 w-100">
+
+    <h2><%= offre.intitule %> - candidature
+        <% if (application.statut === 'en attente de traitement') { %>
+        <span class="badge bg-info ms-3">En attente de traitement</span>
+        <% } else if (application.statut === 'refusé') { %>
+        <span class="badge bg-danger ms-3">Refusée</span>
+        <% } else if (application.statut === 'accepté') { %>
+        <span class="badge bg-success ms-3">Acceptée</span>
+        <% } %>
+    </h2>
+
+    <div class="mb-3">
+        <h4 class="d-inline"><%= application.prenomUtilisateur %> <%= application.nomUtilisateur %> - </h4>
+        <h4 class="d-inline"><%= application.emailUtilisateur %></h4>
+    </div>
+
+
+    <div class="w-100 d-flex">
+        <div style="width:65%; border: 1px solid black; min-height: 500px; margin-right: 5%">
+            <iframe
+                    hidden
+                    src="https://www.africau.edu/images/default/sample.pdf"
+                    width="100%"
+                    height="100%"
+                    id="iframepdf"
+            ></iframe>
+            <div class="iframe-placeholder">
+                <h3>No document selected</h3>
+            </div>
+        </div>
+        <div id="dropzone">
+            <div id="filesListContainer"></div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-secondary mt-3" onclick="history.back()">Retour</button>
+        <% if(application.statut === "en attente de traitement") { %>
+        <button class="btn btn-danger mt-3 ms-3" onclick="setStatus('refusé')">Refuser</button>
+        <button class="btn btn-success mt-3 ms-3" onclick="setStatus('accepté')">Accepter</button>
+        <% } %>
+    </div>
+</main>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+<script>
+    const iframepdf = document.getElementById('iframepdf');
+    const iframeplaceholder = document.getElementsByClassName('iframe-placeholder')[0];
+
+    let files = JSON.parse(`<%- JSON.stringify(fichiers) %>`);
+    // let files = [];
+    let selectedFile = files.length > 0 ? 0 : null;
+
+    const setStatus = (status) => {
+        fetch(`/recruteur/application/<%= application.id %>`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                statut: status
+            })
+        }).then(() => {
+            window.location.reload();
+        })
+    }
+
+    const updateFilesList = () => {
+        const filesListContainer = document.getElementById('filesListContainer');
+        filesListContainer.innerHTML = '';
+        files.forEach((file, i) => {
+            const div = document.createElement('div');
+            div.classList.add('fileEntry');
+            if (i === selectedFile) div.classList.add('selected');
+            const span = document.createElement('span');
+            span.innerHTML = file.originalName;
+            div.appendChild(span);
+            div.addEventListener("click", () => {
+                selectedFile = i;
+                updateFilesList();
+            });
+
+
+            filesListContainer.appendChild(div);
+        });
+
+        if (selectedFile !== null) {
+            iframepdf.hidden = false;
+            iframeplaceholder.hidden = true;
+            iframepdf.src = "/" + files[selectedFile].path;
+            console.log(selectedFile)
+        }
+        else {
+            iframepdf.hidden = true;
+            iframeplaceholder.hidden = false;
+        }
+    }
+
+    // call it once to initialize list
+    updateFilesList();
+</script>
+</body>
+</html>

@@ -6,6 +6,7 @@ const dossierCandidature = require('../models/dossierCandidature');
 const offre = require('../models/offre');
 const sha256 = require("sha256");
 const Utilisateur = require("../models/utilisateur");
+const fichierCandidature = require("../models/fichierCandidature");
 // limit access to authenticated Recruteur users
 router.use((req, res, next) => {
     if (!req.session.user) {
@@ -26,7 +27,7 @@ router.get('/offres', (req, res) => {
 })
 
 router.get('/offre/:id', (req, res) => {
-    offre.read(req.params.id, (err, result) => {
+    offre.read(req.params.id).then(result => {
         // Check that session org is the same as the org of the offer
         if (result[0].sirenOrganisation !== req.session.user.organisation) {
             if (!res.headersSent) { // Check if headers have already been sent
@@ -40,7 +41,7 @@ router.get('/offre/:id', (req, res) => {
 });
 
 
-router.get('/applications/:id/', (req, res) => {
+router.get('/applications/:id', (req, res) => {
     dossierCandidature.readAllOffre(req.params.id)
         .then(result => {
             // Check that session org is the same as the org of the offer
@@ -58,6 +59,54 @@ router.get('/applications/:id/', (req, res) => {
             res.sendStatus(500); // or handle the error appropriately
         });
 });
+
+router.get('/application/:id', (req, res) => {
+    dossierCandidature.read(req.params.id)
+        .then(result => {
+            // Check that session org is the same as the org of the offer
+            if (result.organisation !== req.session.user.organisation) {
+                if (!res.headersSent) { // Check if headers have already been sent
+                    // Display an alert message
+                    res.send('<script>alert("You are not authorized to access this offer."); window.location.href="/recruteur/offres";</script>');
+                }
+                return;
+            }
+            offre.read(result.offre).then(offreResult => {
+                dossierCandidature.fichiers(req.params.id).then(files => {
+                    res.render('recruteur/application', {
+                        offre: offreResult[0],
+                        application: result,
+                        fichiers: files
+                    });
+                })
+            })
+        })
+        .catch(err => {
+            console.error(err);
+            res.sendStatus(500); // or handle the error appropriately
+        });
+})
+
+router.put('/application/:id', (req, res) => {
+    // check if the user is allowed to access this application
+    dossierCandidature.read(req.params.id).then(result => {
+        if (result.organisation !== req.session.user.organisation) {
+            res.sendStatus(403);
+            return;
+        }
+        // check if the application is in accepté or refusé
+        if (result.statut === 'accepté' || result.statut === 'refusé') {
+            res.sendStatus(403);
+            return;
+        }
+        dossierCandidature.update(req.body,req.params.id).then(result => {
+            res.status(200).send('OK');
+        }).catch(err => {
+            console.error(err);
+            res.sendStatus(500); // or handle the error appropriately
+        });
+    })
+})
 router.get('/requests', (req, res) => {
     demandeRecruteur.readAllForOrganisation(req.session.user.organisation, (err, result) => {
         res.render('recruteur/requests', {demandesRecruteurs: result});
