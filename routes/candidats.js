@@ -56,7 +56,7 @@ router.get('/offres', (req, res) => {
 })
 
 router.get('/offre/:id', (req, res) => {
-    offre.read(req.params.id, (err, result) => {
+    offre.read(req.params.id).then(result => {
         dossierCandidature.getFromUserAndOffer(req.session.user.id, req.params.id).then(resultDossier => {
             res.render('candidat/offer', {offre: result[0], application: resultDossier});
         })
@@ -80,7 +80,7 @@ router.get('/apply/:applicationId', (req, res) => {
         switch (resultDossier.statut) {
             case 'brouillon':
                 dossierCandidature.fichiers(req.params.applicationId).then(resultFichiers => {
-                    offre.read(resultDossier.offre, (err, result) => {
+                    offre.read(resultDossier.offre).then(result => {
                         res.render('candidat/application-brouillon', {
                             offre: result[0],
                             application: resultDossier,
@@ -91,7 +91,7 @@ router.get('/apply/:applicationId', (req, res) => {
                 break;
             case 'en attente de traitement':
                 dossierCandidature.fichiers(req.params.applicationId).then(resultFichiers => {
-                    offre.read(resultDossier.offre, (err, result) => {
+                    offre.read(resultDossier.offre).then(result => {
                         res.render('candidat/application-en-attente', {
                             offre: result[0],
                             application: resultDossier,
@@ -101,12 +101,12 @@ router.get('/apply/:applicationId', (req, res) => {
                 })
                 break;
             case 'refusé':
-                offre.read(resultDossier.offre, (err, result) => {
+                offre.read(resultDossier.offre).then(result => {
                     res.render('candidat/application-refuse', {offre: result[0], application: resultDossier});
                 })
                 break;
             case 'accepté':
-                offre.read(resultDossier.offre, (err, result) => {
+                offre.read(resultDossier.offre).then(result => {
                     res.render('candidat/application-accepte', {offre: result[0], application: resultDossier});
                 })
                 break;
