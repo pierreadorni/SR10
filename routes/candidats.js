@@ -120,7 +120,7 @@ router.post('/apply/:applicationId/upload', upload.single('file'), (req, res) =>
         dossierCandidature: req.params.applicationId,
         dateUpload: new Date(),
         path: req.file.path,
-        originalname: req.file.originalname
+        originalname: req.file.originalname,
     }).then(result => {
         res.status(201).json({
             path: req.file.path,

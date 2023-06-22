@@ -42,11 +42,16 @@ router.get('/offre/:id', (req, res) => {
         res.render('recruteur/offer', { req: req, offre: result[0] });
     });
 });
-
-
 router.get('/applications/:id/', (req, res) => {
     dossierCandidature.readAllOffre(req.params.id)
         .then(result => {
+            // Check that result is not empty
+            if (result.length === 0) {
+                // Handle the case where result is empty
+                // For example, you could send an error message to the client
+                res.status(404).send('No offer found with the given ID');
+                return;
+            }
             // Check that session org is the same as the org of the offer
             if (result[0].organisation !== req.session.user.organisation) {
                 if (!res.headersSent) { // Check if headers have already been sent
