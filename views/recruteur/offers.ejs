@@ -8,10 +8,10 @@
 
 <main class="p-5 w-100">
     <h2>Liste des Offres</h2>
-    <div class="d-flex justify-content-between w-100">
+    <div class="d-flex justify-content-between w-100 gap-3 align-items-center">
         <%- include('../partials/searchBar', {'placeholder': 'rechercher parmi les offres', query: locals.query ? query : ''}); %>
         <a href="/recruteur/createOffer">
-        <button class="btn btn-primary position-relative" style="float: right;"><i class="fa fa-plus"></i> Nouvelle offre</button>
+            <button class="btn btn-primary d-flex gap-2 align-items-center" style="width: max-content"><i class="fa fa-plus"></i>Nouvelle offre</button>
         </a>
     </div>
     <div class="d-flex flex-wrap mt-5 gap-5">

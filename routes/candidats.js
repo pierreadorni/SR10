@@ -45,14 +45,15 @@ router.get('/offres', (req, res) => {
         offre.search(req.query.sforsearch, (err, result) => {
             res.render('candidat/offersList', {offres: result, query: req.query.sforsearch});
         })
+    } else {
+        offre.readall().then(result => {
+            res.render('candidat/offersList', {
+                title: 'Liste des offres', offres: result
+            });
+        }).catch(err => {
+            console.log(err);
+        })
     }
-    offre.readall().then(result => {
-        res.render('candidat/offersList', {
-            title: 'Liste des offres', offres: result
-        });
-    }).catch(err => {
-        console.log(err);
-    })
 })
 
 router.get('/offre/:id', (req, res) => {

@@ -144,6 +144,35 @@ const Offre = {
             }
         );
     },
+    searchForOrganisation: (query, siren, callback) => {
+        db.query(
+            `
+                SELECT Offre.numeroOffre,
+                       Offre.dateUpload,
+                       Offre.type,
+                       FP.intitule,
+                       FP.description,
+                       FP.fourchetteBasse,
+                       FP.fourchetteHaute,
+                       FP.typeMetier,
+                       FP.rythme,
+                       Organisation.nom AS nomOrganisation,
+                       FP.organisation  AS sirenOrganisation
+                FROM Offre
+                         INNER JOIN FichePoste FP
+                                    ON Offre.fichePoste = FP.id
+                         INNER JOIN Organisation
+                                    ON Organisation.siren = FP.organisation
+                WHERE FP.intitule LIKE ?
+                AND FP.organisation = ?
+            `,
+            ['%' + query + '%', siren],
+            (error, results, fields) => {
+                if (error) throw error;
+                return callback(null, results);
+            }
+        );
+    },
     delete: (numeroOffre, callback) => {
         db.query(
             'DELETE FROM Offre WHERE numeroOffre = ?',

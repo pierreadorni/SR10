@@ -24,9 +24,15 @@ router.use((req, res, next) => {
 })
 
 router.get('/offres', (req, res) => {
-    offre.readAllForOrganisation(req.session.user.organisation, (err, result) => {
-        res.render('recruteur/offers', {offres: result});
-    })
+    if (req.query.sforsearch) {
+        offre.searchForOrganisation(req.query.sforsearch, req.session.user.organisation, (err, result) => {
+            res.render('candidat/offersList', {offres: result, query: req.query.sforsearch});
+        })
+    } else {
+        offre.readAllForOrganisation(req.session.user.organisation, (err, result) => {
+            res.render('recruteur/offers', {offres: result});
+        })
+    }
 })
 
 router.get('/offre/:id', (req, res) => {
