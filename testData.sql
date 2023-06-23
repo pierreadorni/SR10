@@ -17,10 +17,10 @@ VALUES ('123456789', '2022-01-01', 'Développeur Full-Stack', 'Doe John', 'Infor
        ('123456789', '2022-01-02', 'Chef de projet marketing', 'Smith Jane', 'Marketing', 'CDI', 40000, 50000, 'Nous cherchons un chef de projet marketing passionné pour mener notre équipe de marketing.','Paris' ),
        ('987654321', '2022-01-03', 'Assistant administratif', 'Lee Alex', 'Administration', 'CDD', 20000, 25000, 'Nous cherchons un assistant administratif à temps partiel pour soutenir nos opérations quotidiennes.','London');
 
-INSERT INTO Offre (dateUpload, type, fichePoste)
-VALUES ('2022-01-01', 'CDI', 1),
-       ('2022-01-02', 'CDI', 2),
-       ('2022-01-03', 'CDD', 3);
+INSERT INTO Offre (dateUpload, fichePoste)
+VALUES ('2022-01-01', 1),
+       ('2022-01-02', 2),
+       ('2022-01-03', 3);
 
 INSERT INTO DossierCandidature (dateCandidature, statut, utilisateur, offre)
 VALUES ('2022-01-05', 'refusé', 3, 1),

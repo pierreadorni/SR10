@@ -16,7 +16,6 @@ const Offre = {
                 `
             SELECT Offre.numeroOffre,
                    Offre.dateUpload,
-                   Offre.type,
                    COUNT(DC.id) AS nbCandidatures,
                    FP.intitule,
                    FP.description,
@@ -48,7 +47,6 @@ const Offre = {
             `
                 SELECT Offre.numeroOffre,
                        Offre.dateUpload,
-                       Offre.type,
                        COUNT(DC.id) AS nbCandidatures,
                        FP.intitule,
                        FP.description,
@@ -83,7 +81,6 @@ const Offre = {
                 `
                     SELECT Offre.numeroOffre,
                            Offre.dateUpload,
-                           Offre.type,
                            FP.intitule,
                            FP.description,
                            FP.fourchetteBasse,
@@ -121,7 +118,6 @@ const Offre = {
             `
                 SELECT Offre.numeroOffre,
                        Offre.dateUpload,
-                       Offre.type,
                        FP.intitule,
                        FP.description,
                        FP.fourchetteBasse,
@@ -149,7 +145,6 @@ const Offre = {
             `
                 SELECT Offre.numeroOffre,
                        Offre.dateUpload,
-                       Offre.type,
                        FP.intitule,
                        FP.description,
                        FP.fourchetteBasse,
