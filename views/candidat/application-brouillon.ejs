@@ -60,8 +60,8 @@
             justify-content: center;
             align-items: center;
         }
-
     </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
 <%- include('../partials/candidatHeader'); %>
@@ -102,6 +102,7 @@
 </main>
 <!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
     const fileInput = document.getElementById('fileInput');
     const iframepdf = document.getElementById('iframepdf');
@@ -123,6 +124,7 @@
     }
 
     const updateFilesList = () => {
+        console.log(files)
         const filesListContainer = document.getElementById('filesListContainer');
         filesListContainer.innerHTML = '';
         files.forEach((file, i) => {
@@ -136,21 +138,23 @@
             svgContainer.innerHTML = `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M400 145.49L366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49z"></path></svg>`
             svgContainer.addEventListener("click", (e) => {
                 e.stopPropagation();
-                const selectedFileBefore = files[selectedFile];
-                const fileToDelete = files[i];
-                files.splice(i, 1);
-                if (selectedFile === i) selectedFile = null;
-                else {
-                    const selectedFileAfter = files[selectedFile];
-                    if (selectedFileBefore !== selectedFileAfter) {
-                        selectedFile--;
-                    }
-                }
                 // delete file from server
+                const fileToDelete = files[i];
                 fetch('/candidat/apply/<%= application.id %>/file/'+fileToDelete.id, {
                     method: 'DELETE'
                 }).then((res) => {
-                    updateFilesList();
+                    if (res.ok) {
+                        const selectedFileBefore = files[selectedFile];
+                        files.splice(i, 1);
+                        if (selectedFile === i) selectedFile = null;
+                        else {
+                            const selectedFileAfter = files[selectedFile];
+                            if (selectedFileBefore !== selectedFileAfter) {
+                                selectedFile--;
+                            }
+                        }
+                        updateFilesList();
+                    }
                 }).catch((err) => {
                     console.log(err);
                 });
@@ -188,9 +192,20 @@
             body: formData
         }).then((res) => {
             res.json().then((data) => {
-                files.push(data)
-                selectedFile = files.length-1;
-                updateFilesList()
+                if (!res.ok) {
+                    Toastify({
+                        text: data.error,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                        stopOnFocus: true,
+                    }).showToast();
+                } else {
+                    files.push(data)
+                    selectedFile = files.length-1;
+                    updateFilesList()
+                }
             });
         }).catch((err) => {
             console.log(err);

@@ -10,6 +10,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="toastify-js" level="application" />
     <orderEntry type="library" name="@types/jest" level="application" />
+    <orderEntry type="library" name="toastify-js" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
   </component>
 </module>

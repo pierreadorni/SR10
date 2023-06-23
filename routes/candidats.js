@@ -117,6 +117,22 @@ router.get('/apply/:applicationId', (req, res) => {
     })
 })
 router.post('/apply/:applicationId/upload', upload.single('file'), (req, res) => {
+    // check if file is a pdf
+    if (req.file.mimetype !== 'application/pdf') {
+        fs.unlink(req.file.path, (err) => {
+            if (err) res.status(400).json({error: err});
+            res.status(400).json({error: 'Le fichier doit être un pdf'});
+        })
+        return;
+    }
+    // check if file is not > 10MB
+    if (req.file.size > 10000000) {
+        fs.unlink(req.file.path, (err) => {
+            if (err) res.status(400).json({error: err});
+            res.status(400).json({error: 'Le fichier doit être < 10MB'});
+        })
+        return;
+    }
     FichierCandidature.create({
         dossierCandidature: req.params.applicationId,
         dateUpload: new Date(),
@@ -126,6 +142,7 @@ router.post('/apply/:applicationId/upload', upload.single('file'), (req, res) =>
         res.status(201).json({
             path: req.file.path,
             originalName: req.file.originalname,
+            id: result.insertId
         });
     }).catch(err => {
         res.status(500).json({error: err});
@@ -134,6 +151,10 @@ router.post('/apply/:applicationId/upload', upload.single('file'), (req, res) =>
 
 router.delete('/apply/:applicationId/file/:fileId', (req, res) => {
     FichierCandidature.read(req.params.fileId).then(result => {
+        if (!result) {
+            res.status(404).json({error: 'File not found'});
+            return;
+        }
         fs.unlink(result.path, (err) => {
             if (err) res.status(500).json({error: err});
             FichierCandidature.delete(req.params.fileId).then(result => {
