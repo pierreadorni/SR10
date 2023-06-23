@@ -55,7 +55,6 @@ CREATE TABLE Offre
 (
     numeroOffre INT          NOT NULL AUTO_INCREMENT,
     dateUpload  DATE         NOT NULL DEFAULT (CURRENT_DATE),
-    type        VARCHAR(255) NOT NULL,
     fichePoste  INT          NOT NULL,
     PRIMARY KEY (numeroOffre),
     FOREIGN KEY (fichePoste) REFERENCES FichePoste (id) ON DELETE CASCADE
