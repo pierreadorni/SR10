@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body>
+<%- include('../partials/candidatHeader', activePage=''); %>
+<main class="w-100">
+    <section class="mt-4 p-5">
+        <form class="container ms-0 w-100" method="POST">
+            <div class="mb-3">
+                <label for="siren" class="form-label">SIREN</label>
+                <input type="text" class="form-control" id="siren" name="siren" required>
+            </div>
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="nom" name="nom" required>
+            </div>
+            <div class="mb-3">
+                <label for="rue" class="form-label">Adresse</label>
+                <input type="text" class="form-control" id="rue" name="rue" required>
+            </div>
+            <div class="mb-3">
+                <label for="ville" class="form-label">Ville</label>
+                <input type="text" class="form-control" id="ville" name="ville" required>
+            </div>
+            <div class="mb-3">
+                <label for="codePostal" class="form-label">Code Postal</label>
+                <input type="text" class="form-control" id="codePostal" name="codePostal" pattern="\d{5}" required>
+            </div>
+            <div class="mb-3">
+                <label for="region" class="form-label">Région</label>
+                <input type="text" class="form-control" id="region" name="region" required/>
+            </div>
+
+            <div class="mb-3">
+                <label for="pays" class="form-label">Pays</label>
+                <input type="text" class="form-control" name="pays" id="pays" required>
+            </div>
+
+            <div class="d-flex justify-content-end gap-3">
+                <a href="request" class="btn btn-secondary mt-3">
+                    Retour
+                </a>
+                <input type="submit" class="btn btn-primary mt-3" value="Enregistrer">
+            </div>
+        </form>
+    </section>
+
+</main>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    const success = '<%= locals.success && success %>';
+    const error = '<%= locals.error && error %>';
+
+    if (success) {
+        Toastify({
+            text: "Votre demande a bien été enregistrée, elle sera traitée dans les plus brefs délais par nos administrateurs.",
+            duration: 3000,
+            gravity: "top",
+            position: 'right',
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            className: "info",
+        }).showToast();
+    }
+    if (error) {
+        Toastify({
+            text: error,
+            duration: 3000,
+            gravity: "top",
+            position: 'right',
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            className: "info",
+        }).showToast();
+    }
+
+</script>
+</body>
+</html>

@@ -49,7 +49,6 @@ const DossierCandidature = {
             SELECT 
                 Offre.numeroOffre, 
                 Offre.dateUpload, 
-                Offre.type, 
                 FP.intitule, 
                 FP.description, 
                 FP.fourchetteBasse,

@@ -1,7 +1,7 @@
 USE SR10;
-INSERT INTO Organisation (siren, nom, rue, ville, region, codePostal, pays)
-       VALUES ('123456789','Spotifail', '15 Rue de la Paix', 'Paris', 'Ile-de-France', 75001, 'France'),
-       ('987654321','Saint-Cloux', '10 Downing Street', 'London', 'Greater London', 54001, 'United Kingdom');
+INSERT INTO Organisation (siren, nom, rue, ville, region, codePostal, pays, validated)
+       VALUES ('123456789','Spotifail', '15 Rue de la Paix', 'Paris', 'Ile-de-France', 75001, 'France', TRUE),
+       ('987654321','Saint-Cloux', '10 Downing Street', 'London', 'Greater London', 54001, 'United Kingdom', TRUE);
 
 INSERT INTO Utilisateur (typeUtilisateur, email, nom, prenom, dateCreation, statutCompte, mdpHash, organisation)
 VALUES ('Administrateur', 'admin@example.com', 'Doe', 'John', '2022-01-01', 'actif', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL),
@@ -9,8 +9,6 @@ VALUES ('Administrateur', 'admin@example.com', 'Doe', 'John', '2022-01-01', 'act
        ('Candidat', 'candidate@example.com', 'Lee', 'Alex', '2022-01-03', 'actif', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL),
        ('Candidat', 'bientotRecruteur@example.com', 'Mama', 'Joe', '2022-01-03', 'actif', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL),
        ('Candidat', 'candidate2@example.com', 'anon', 'john', '2023-01-03', 'actif', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL);
-
-
 
 INSERT INTO FichePoste (organisation, dateUpload, intitule, responsable, typeMetier, rythme, fourchetteBasse, fourchetteHaute, description, localisation)
 VALUES ('123456789', '2022-01-01', 'Développeur Full-Stack', 'Doe John', 'Informatique', 'CDI', 35000, 45000, 'Nous cherchons un développeur Full-Stack expérimenté pour rejoindre notre équipe dynamique.', 'Paris'),

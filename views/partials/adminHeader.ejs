@@ -21,6 +21,9 @@
 
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav ms-auto">
+                <li>
+                    <a class="nav-link <%= activePage == 'organisations' && 'active'%>" href="/admin/organisations">Nouvelles Organisation</a>
+                </li>
                 <li class="nav-item">
                     <a aria-current="page" class="nav-link <%= activePage == 'usersList' && 'active'%>" href="/admin/users">Liste des utilisateurs</a>
                 </li>

@@ -12,6 +12,7 @@ CREATE TABLE Organisation
     region     VARCHAR(255) NOT NULL,
     codePostal INT          NOT NULL,
     pays       VARCHAR(255) NOT NULL,
+    validated  BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (siren)
 );
 
@@ -53,17 +54,17 @@ CREATE TABLE FichePoste
 
 CREATE TABLE Offre
 (
-    numeroOffre INT          NOT NULL AUTO_INCREMENT,
-    dateUpload  DATE         NOT NULL DEFAULT (CURRENT_DATE),
-    fichePoste  INT          NOT NULL,
+    numeroOffre INT  NOT NULL AUTO_INCREMENT,
+    dateUpload  DATE NOT NULL DEFAULT (CURRENT_DATE),
+    fichePoste  INT  NOT NULL,
     PRIMARY KEY (numeroOffre),
     FOREIGN KEY (fichePoste) REFERENCES FichePoste (id) ON DELETE CASCADE
 );
 
 CREATE TABLE DossierCandidature
 (
-    id              INT                                                    NOT NULL AUTO_INCREMENT,
-    dateCandidature DATE                                                   NOT NULL DEFAULT (CURRENT_DATE),
+    id              INT                                                                 NOT NULL AUTO_INCREMENT,
+    dateCandidature DATE                                                                NOT NULL DEFAULT (CURRENT_DATE),
     statut          ENUM ('brouillon', 'refusé', 'en attente de traitement', 'accepté') NOT NULL,
     utilisateur     INT,
     offre           INT,
@@ -99,11 +100,11 @@ CREATE TABLE demandeRecruteur
 
 CREATE TABLE FichierCandidature
 (
-    id         INT          NOT NULL AUTO_INCREMENT,
-    dateUpload DATE         NOT NULL,
-    path       VARCHAR(255) NOT NULL,
-    originalName   VARCHAR(255) NOT NULL,
-    dossierCandidature INT NOT NULL,
+    id                 INT          NOT NULL AUTO_INCREMENT,
+    dateUpload         DATE         NOT NULL,
+    path               VARCHAR(255) NOT NULL,
+    originalName       VARCHAR(255) NOT NULL,
+    dossierCandidature INT          NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (dossierCandidature) REFERENCES DossierCandidature (id) ON DELETE CASCADE
 );

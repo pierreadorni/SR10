@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+<%- include('../partials/adminHeader', {activePage: 'organisations'}); %>
+
+<main class="p-5 w-100">
+    <h2>demandes de création d'organisations</h2>
+    <div class="shadow border p-3 mb-5 bg-body rounded mt-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">SIREN</th>
+                <th class="text-center" scope="col">Nom</th>
+                <th class="text-center" scope="col">Adresse</th>
+                <th class="text-center" scope="col">Région</th>
+                <th class="text-center" scope="col">Code Postal</th>
+                <th class="text-center" scope="col">Pays</th>
+                <th class="text-center" scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% organisations.forEach(function(organisation) { %>
+                <tr class="user-row">
+                    <td class="text-center align-middle"><%= organisation.siren %></td>
+                    <td class="text-center align-middle"><%= organisation.nom %></td>
+                    <td class="text-center align-middle"><%= organisation.rue %></td>
+                    <td class="text-center align-middle"><%= organisation.region %></td>
+                    <td class="text-center align-middle"><%= organisation.codePostal %></td>
+                    <td class="text-center align-middle"><%= organisation.pays %></td>
+
+                    <td class="text-center d-flex justify-content-center gap-2">
+                        <form action="/admin/organisations/<%= organisation.siren %>/accept" method="POST">
+                            <input type="submit" class="btn btn-success" value="Accepter"/>
+                        </form>
+                        <form action="/admin/organisations/<%= organisation.siren %>/delete" method="POST">
+                            <input type="submit" class="btn btn-danger" value="Refuser"/>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
+</main>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+</body>
+</html>

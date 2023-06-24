@@ -18,6 +18,36 @@ router.use((req, res, next) => {
     next();
 })
 
+router.get('/organisations', function (req, res, next) {
+    Organisation.readAllUnValidated().then(result => {
+        res.render('admin/organisations', {
+            title: 'Liste des organisations', organisations: result
+        });
+    }).catch(err => {
+        console.log(err);
+    })
+})
+
+router.post('/organisations/:siren/accept', function (req, res, next) {
+    Organisation.update({
+       validated: true
+    },req.params.siren).then(result => {
+        res.redirect('/admin/organisations')
+    }).catch(err => {
+        console.log(err);
+        res.redirect('/admin/organisations')
+    })
+})
+
+router.post('/organisations/:siren/delete', function (req, res, next) {
+    Organisation.remove(req.params.siren).then(result => {
+        res.redirect('/admin/organisations')
+    }).catch(err => {
+        console.log(err);
+        res.redirect('/admin/organisations')
+    })
+})
+
 /* GET users listing. */
 router.get('/users', function (req, res, next) {
     if (req.query.sforsearch) {

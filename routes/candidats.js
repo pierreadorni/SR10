@@ -177,12 +177,32 @@ router.post('/apply/:applicationId/validate', (req, res) => {
 })
 
 router.get('/request', (req, res) => {
-    Organisation.readAll().then(result => {
+    Organisation.readAllValidated().then(result => {
         res.render('candidat/request', {
             title: 'Liste des organisations', organisations: result
         });
     }).catch(err => {
         console.log(err);
+    })
+})
+
+router.get('/new-organisation', (req, res) => {
+    res.render('candidat/new-organisation', {title: 'Nouvelle organisation'});
+})
+
+router.post('/new-organisation', (req, res) => {
+    Organisation.create({
+        siren: req.body.siren,
+        nom: req.body.nom,
+        rue: req.body.rue,
+        ville: req.body.ville,
+        codePostal: req.body.codePostal,
+        region: req.body.region,
+        pays: req.body.pays,
+    }).then(result => {
+        res.status(201).render('candidat/new-organisation', {title: 'Nouvelle organisation', success: true});
+    }).catch(err => {
+        res.status(500).render('candidat/new-organisation', {title: 'Nouvelle organisation', error: err});
     })
 })
 
@@ -200,7 +220,7 @@ router.get('/applications', (req, res) => {
         console.log(err);
     })
 })
-//We use a put request to delete the application since delete request does'nt support body
+
 router.delete('/applications', (req, res) => {
     dossierCandidature.delete(req.body.id).then(result => {
         res.status(200).json(result);
