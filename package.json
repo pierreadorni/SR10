@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node --watch bin/www",
-    "test": "jest"
+    "test": "jest",
+    "migrate": "node migrate.js"
   },
   "jest": {
     "collectCoverage": true,
