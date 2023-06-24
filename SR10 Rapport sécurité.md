@@ -7,7 +7,7 @@ Référence directe non sécurisée : un développeur expose une référence à 
 Un recruteur de l’organisation A peut accéder aux candidatures des offres de l’organisation B s’il connaît l’id de l’offre.
 
 Par exemple: [http://localhost:3000/recruteur/applications/3](http://localhost:3000/recruteur/applications/2) peut être atteint par tous les recruteurs, quelle que soit leur organisation. 
-## <a name="_ljjqtdvo7010"></a> C Méthode protection:
+## C Méthode protection:
 Lorsque nous avons détecté la vulnérabilité nous avons modifié la route GET'/applications/:id/' de sorte détecter lorsque l’organisation du recruteur ne correspond pas à celle de l’offre (result[0].organisation !== req.session.user.organisation) avant de render la page.
 
 ## II Injections SQL
